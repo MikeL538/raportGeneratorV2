@@ -8,185 +8,194 @@
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
+    <header>
+      <div class="headerContainer">
+        <img class="headerLogo" src="" />
+        <h2>RaportGenerator</h2>
+      </div>
+    </header>
     <main class="main">
       <!-- Left Data Input -->
       <form class="leftDataInput">
         <div class="introDiv">
-          <h1>
-            Wprowadź dane do sprawozdania<br />
-            i kliknij "Generuj" na dole
-          </h1>
-          <div>
-            <button type="button" id="btnZoomIn" class="buttons">
+          <h1>Wprowadź dane do raportu</h1>
+          <!-- <div>
+           <button type="button" id="btnZoomIn" class="buttons">
               Przybliż
             </button>
             <button type="button" id="btnZoomOut" class="buttons">Oddal</button>
-          </div>
+          </div> -->
         </div>
 
         <div class="dataInput">
           <label for="publisherValue">WYDAWNICTWO</label>
-          <input type="text" placeholder="np. OPERON" id="publisherValue" />
+          <input type="text" placeholder="Np. OPERON" id="publisherValue" />
         </div>
         <div class="dataInput">
           <label for="dateValue">DATA</label>
-          <input type="text" placeholder="np. 11-15.12.2025" id="dateValue" />
+          <input type="text" placeholder="DD.MM.RRRR" id="dateValue" />
         </div>
         <div class="dataInput">
           <label for="classValue">KLASA</label>
-          <input type="text" placeholder="np. 4A" id="classValue" />
+          <input type="text" placeholder="Np. 4A" id="classValue" />
         </div>
         <div class="dataInput">
           <label for="subjectValue">MATURA Z</label>
-          <input type="text" placeholder="np. chemii" id="subjectValue" />
+          <input type="text" placeholder="Np. chemii" id="subjectValue" />
         </div>
         <div class="dataInput">
           <label for="levelValue">POZIOM</label>
-          <input type="text" placeholder="np. Rozszerzony" id="levelValue" />
+          <input type="text" placeholder="Np. Rozszerzony" id="levelValue" />
         </div>
         <div class="dataInput">
           <label for="studentsAmountValue">LICZBA ZDAJĄCYCH</label>
-          <input type="text" placeholder="np. 8" id="studentsAmountValue" />
+          <input type="text" placeholder="Np. 8" id="studentsAmountValue" />
         </div>
         <div class="dataInput">
           <label for="maxPointsValue">MAX PUNKTÓW</label>
-          <input type="text" placeholder="np. 60" id="maxPointsValue" />
+          <input type="text" placeholder="Np. 60" id="maxPointsValue" />
         </div>
         <div class="btnDiv">
           <button class="buttons" id="btnGenerate" type="submit">
-            GENERUJ
+            Generuj raport
           </button>
-          <button class="buttons" id="btnDownload" type="button">
+          <!-- <button class="buttons" id="btnDownload" type="button">
             POBIERZ
           </button>
           <button class="buttons" id="btnFixHeaders" type="button">
             POPRAW NAGŁÓWKI
-          </button>
+          </button> -->
         </div>
       </form>
 
       <!-- Right Report Output -->
       <div id="reportToPdf">
-        <h1>
-          Matura próbna wyd. <span id="publisherTarget">OPERON</span> -
-          <span id="dateTarget" class="firstPartTarget">01-01.01.2000</span>
-        </h1>
-        <h2>Klasa: <span id="classTarget">3A</span></h2>
-        <h2>
-          Wyniki próbnego egzaminu maturalnego z
-          <span id="subjectTarget">chemii</span>
-        </h2>
-        <h2>Poziom <span id="levelTarget">Rozszerzony</span></h2>
-        <div>
-          <h3>1. Ustalenie wyników egzaminu:</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Lp.</th>
-                <th>Imię i nazwisko</th>
-                <th>Maks punktów</th>
-                <th>Uzyskane punkty</th>
-                <th>Sprawność testowa</th>
-              </tr>
-            </thead>
-            <tbody id="tBody"></tbody>
-          </table>
+        <div class="reportBlock1">
+          <h1>
+            Matura próbna wyd. <span id="publisherTarget">OPERON</span> -
+            <span id="dateTarget" class="firstPartTarget">01-01.01.2000</span>
+          </h1>
+          <h2>Klasa: <span id="classTarget">3A</span></h2>
+          <h2>
+            Wyniki próbnego egzaminu maturalnego z
+            <span id="subjectTarget">chemii</span>
+          </h2>
+          <h2>Poziom <span id="levelTarget">Rozszerzony</span></h2>
+          <div>
+            <h3>1. Ustalenie wyników egzaminu:</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Lp.</th>
+                  <th>Imię i nazwisko</th>
+                  <th>Maks punktów</th>
+                  <th>Uzyskane punkty</th>
+                  <th>Sprawność testowa</th>
+                </tr>
+              </thead>
+              <tbody id="tBody"></tbody>
+            </table>
+          </div>
         </div>
 
         <!-- Right Report Output Second Part -->
-        <div id="indicatorsContainer">
-          <h3>2. Ustalenie podstawowych wskaźników ilościowych:</h3>
-          <table id="indicatorsTable">
-            <tbody>
-              <tr>
-                <td>Liczba zdających</td>
-                <td id="studentsAmountTargetCount">0</td>
-              </tr>
-              <tr>
-                <td>Minimalna liczba uzyskanych punktów</td>
-                <td id="minPointsSummary">0</td>
-              </tr>
-              <tr>
-                <td>Maksymalna liczba uzyskanych punktów</td>
-                <td id="maxPointsSummary">0</td>
-              </tr>
-              <tr>
-                <td>Średnia liczba uzyskanych punktów</td>
-                <td id="averagePointsSummary">0</td>
-              </tr>
-              <tr>
-                <td>Mediana liczby uzyskanych punktów</td>
-                <td id="medianPointsSummary">0</td>
-              </tr>
-              <tr>
-                <td>Modalna liczby uzyskanych punktów</td>
-                <td id="modePointsSummary">0</td>
-              </tr>
-              <tr>
-                <td>Łatwość arkusza</td>
-                <td id="sheetLevel">0</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="reportBlock2">
+          <div id="indicatorsContainer">
+            <h3>2. Ustalenie podstawowych wskaźników ilościowych:</h3>
+            <table id="indicatorsTable">
+              <tbody>
+                <tr>
+                  <td>Liczba zdających</td>
+                  <td id="studentsAmountTargetCount">0</td>
+                </tr>
+                <tr>
+                  <td>Minimalna liczba uzyskanych punktów</td>
+                  <td id="minPointsSummary">0</td>
+                </tr>
+                <tr>
+                  <td>Maksymalna liczba uzyskanych punktów</td>
+                  <td id="maxPointsSummary">0</td>
+                </tr>
+                <tr>
+                  <td>Średnia liczba uzyskanych punktów</td>
+                  <td id="averagePointsSummary">0</td>
+                </tr>
+                <tr>
+                  <td>Mediana liczby uzyskanych punktów</td>
+                  <td id="medianPointsSummary">0</td>
+                </tr>
+                <tr>
+                  <td>Modalna liczby uzyskanych punktów</td>
+                  <td id="modePointsSummary">0</td>
+                </tr>
+                <tr>
+                  <td>Łatwość arkusza</td>
+                  <td id="sheetLevel">0</td>
+                </tr>
+              </tbody>
+            </table>
 
-        <div id="tasksDifficultyContainer">
-          <h3>3. Trudność poszczególnych zadań:</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Poziom trudności zadania</th>
-                <th>Numer zadania</th>
-              </tr>
-            </thead>
-            <tbody id="taskDifficultyBody">
-              <tr>
-                <td>Bardzo Łatwe (powyżej 0,85%)</td>
-                <td>
-                  <textarea
-                    class="taskDifficultyTextArea"
-                    placeholder="Wpisz numer zadań"
-                  ></textarea>
-                </td>
-              </tr>
-              <tr>
-                <td>Łatwe (powyżej 0,75%)</td>
-                <td>
-                  <textarea
-                    class="taskDifficultyTextArea"
-                    placeholder="Wpisz numer zadań"
-                  ></textarea>
-                </td>
-              </tr>
-              <tr>
-                <td>Średnie (powyżej 0,50%)</td>
-                <td>
-                  <textarea
-                    class="taskDifficultyTextArea"
-                    placeholder="Wpisz numer zadań"
-                  ></textarea>
-                </td>
-              </tr>
-              <tr>
-                <td>Trudne (powyżej 0,35%)</td>
-                <td>
-                  <textarea
-                    class="taskDifficultyTextArea"
-                    placeholder="Wpisz numer zadań"
-                  ></textarea>
-                </td>
-              </tr>
-              <tr>
-                <td>Bardzo Trudne (0% - 0,34%)</td>
-                <td>
-                  <textarea
-                    class="taskDifficultyTextArea"
-                    placeholder="Wpisz numer zadań"
-                  ></textarea>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <div id="tasksDifficultyContainer">
+              <h3>3. Trudność poszczególnych zadań:</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Poziom trudności zadania</th>
+                    <th>Numer zadania</th>
+                  </tr>
+                </thead>
+                <tbody id="taskDifficultyBody">
+                  <tr>
+                    <td>Bardzo Łatwe (powyżej 0,85%)</td>
+                    <td>
+                      <textarea
+                        class="taskDifficultyTextArea"
+                        placeholder="Wpisz numer zadań"
+                      ></textarea>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Łatwe (powyżej 0,75%)</td>
+                    <td>
+                      <textarea
+                        class="taskDifficultyTextArea"
+                        placeholder="Wpisz numer zadań"
+                      ></textarea>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Średnie (powyżej 0,50%)</td>
+                    <td>
+                      <textarea
+                        class="taskDifficultyTextArea"
+                        placeholder="Wpisz numer zadań"
+                      ></textarea>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Trudne (powyżej 0,35%)</td>
+                    <td>
+                      <textarea
+                        class="taskDifficultyTextArea"
+                        placeholder="Wpisz numer zadań"
+                      ></textarea>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Bardzo Trudne (0% - 0,34%)</td>
+                    <td>
+                      <textarea
+                        class="taskDifficultyTextArea"
+                        placeholder="Wpisz numer zadań"
+                      ></textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="reportBlock3">
           <div id="analysisTask">
             <h3>4A. Analiza zadań bardzo łatwych i łatwych:</h3>
             <textarea
