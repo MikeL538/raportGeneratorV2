@@ -28,12 +28,18 @@
         </div>
 
         <div class="dataInput">
-          <label for="publisherValue">WYDAWNICTWO</label>
-          <input type="text" placeholder="Np. OPERON" id="publisherValue" />
+          <select id="publisherValue">
+            <option>Operon</option>
+            <option>CKE</option>
+            <option>Nowa Era</option>
+            <option>Inne, wprowadź</option>
+          </select>
+          <!-- <label for="publisherValue">WYDAWNICTWO</label>
+          <input type="text" placeholder="Np. OPERON" id="publisherValue" /> -->
         </div>
         <div class="dataInput">
           <label for="dateValue">DATA</label>
-          <input type="text" placeholder="DD.MM.RRRR" id="dateValue" />
+          <input type="date" placeholder="DD.MM.RRRR" id="dateValue" />
         </div>
         <div class="dataInput">
           <label for="classValue">KLASA</label>
@@ -44,8 +50,12 @@
           <input type="text" placeholder="Np. chemii" id="subjectValue" />
         </div>
         <div class="dataInput">
-          <label for="levelValue">POZIOM</label>
-          <input type="text" placeholder="Np. Rozszerzony" id="levelValue" />
+          <select id="levelValue">
+            <option>Podstawowy</option>
+            <option>Rozszerzony</option>
+          </select>
+          <!-- <label for="levelValue">POZIOM</label>
+          <input type="text" placeholder="Np. Rozszerzony" id="levelValue" /> -->
         </div>
         <div class="dataInput">
           <label for="studentsAmountValue">LICZBA ZDAJĄCYCH</label>
@@ -146,7 +156,9 @@
                 </thead>
                 <tbody id="taskDifficultyBody">
                   <tr>
-                    <td>Bardzo Łatwe (powyżej 0,85%)</td>
+                    <td class="taskDifficultyBodyDesc">
+                      Bardzo Łatwe (powyżej 0,85%)
+                    </td>
                     <td>
                       <textarea
                         class="taskDifficultyTextArea"
