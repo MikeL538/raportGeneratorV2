@@ -43,8 +43,9 @@ header {
 
 .headerLogo {
   /* margin: 8px 8px 8px 0; */
-  width: 45px;
+  width: 90px;
   height: 45px;
+  overflow: visible;
   /* border: 1px solid gold; */
 }
 
