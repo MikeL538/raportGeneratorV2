@@ -10,8 +10,10 @@
   <body>
     <header>
       <div class="headerContainer">
-        <img class="headerLogo" src="" />
         <h2>RaportGenerator</h2>
+        <svg class="headerLogo" width="14" height="10">
+          <use href="logo.svg#iconLogo"></use>
+        </svg>
       </div>
     </header>
     <main class="main">
@@ -19,7 +21,7 @@
       <form class="leftDataInput">
         <div class="introDiv">
           <h1>Wprowadź dane do raportu</h1>
-          <!-- <div>
+          <!-- <div> 
            <button type="button" id="btnZoomIn" class="buttons">
               Przybliż
             </button>
@@ -28,6 +30,7 @@
         </div>
 
         <div class="dataInput">
+          <label for="publisherValue">Wydawnictwo</label>
           <select id="publisherValue">
             <option>Operon</option>
             <option>CKE</option>
@@ -38,18 +41,19 @@
           <input type="text" placeholder="Np. OPERON" id="publisherValue" /> -->
         </div>
         <div class="dataInput">
-          <label for="dateValue">DATA</label>
+          <label for="dateValue">Data</label>
           <input type="date" placeholder="DD.MM.RRRR" id="dateValue" />
         </div>
         <div class="dataInput">
-          <label for="classValue">KLASA</label>
+          <label for="classValue">Klasa</label>
           <input type="text" placeholder="Np. 4A" id="classValue" />
         </div>
         <div class="dataInput">
-          <label for="subjectValue">MATURA Z</label>
+          <label for="subjectValue">Matura z</label>
           <input type="text" placeholder="Np. chemii" id="subjectValue" />
         </div>
         <div class="dataInput">
+          <label for="levelValue">Poziom</label>
           <select id="levelValue">
             <option>Podstawowy</option>
             <option>Rozszerzony</option>

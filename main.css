@@ -42,10 +42,10 @@ header {
 }
 
 .headerLogo {
-  margin: 8px 8px 8px 0;
+  /* margin: 8px 8px 8px 0; */
   width: 45px;
   height: 45px;
-  border: 1px solid gold;
+  /* border: 1px solid gold; */
 }
 
 .headerContainer > h2 {
