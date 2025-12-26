@@ -1,6 +1,6 @@
+const DEFAULT_ROWS = 20;
 const btnGenerate = document.querySelector("#btnGenerate");
-// const btnDownload = document.querySelector("#btnDownload");
-// const btnDownloadEnd = document.querySelector("#btnDownloadEnd");
+const btnDownload = document.querySelector("#btnDownload");
 const tBody = document.querySelector("#tBody");
 
 // // Input elements for first part report details
@@ -24,163 +24,186 @@ let studentsAmountTargetCount = document.querySelector(
 );
 const maxPointsTarget = document.querySelectorAll(".maxPointsTarget");
 
-// // Input elements for second part report details
+// Target elements for second part report details
+const maxPointsSummary = document.querySelector("#maxPointsSummary");
+const minPointsSummary = document.querySelector("#minPointsSummary");
+const averagePointsSummary = document.querySelector("#averagePointsSummary");
+const medianPointsSummary = document.querySelector("#medianPointsSummary");
+const modePointsSummary = document.querySelector("#modePointsSummary");
+const sheetLevel = document.querySelector("#sheetLevel");
 
-// // Target elements for second part report details
-// const maxPointsSummary = document.querySelector("#maxPointsSummary");
-// const minPointsSummary = document.querySelector("#minPointsSummary");
-// const averagePointsSummary = document.querySelector("#averagePointsSummary");
-// const medianPointsSummary = document.querySelector("#medianPointsSummary");
-// const modePointsSummary = document.querySelector("#modePointsSummary");
-// const sheetLevel = document.querySelector("#sheetLevel");
+// Create placeholders rows after page load up
+function createRow(i) {
+  return `
+    <tr>
+      <td>${i}</td>
+      <td><input class="studentNameArea" placeholder="Imię i nazwisko"></input></td>
+      <td class="maxPointsTarget">0</td>
+      <td><input class="scoredPointsArea" placeholder="0"></input></td>
+      <td class="scoredPercentageArea">0%</td>
+    </tr>
+  `;
+}
 
-// function generateSecondPart() {
-//   let maxPoints = 0;
-//   let minPoints = maxPointsValue.value;
-//   let average = 0.0;
-//   let medianArray = [];
-//   let median = 0.0;
+// Function to generate Second section of the rpeort
+function generateSecondPart() {
+  let maxPoints = 0;
+  let minPoints = maxPointsValue.value;
+  let average = 0.0;
+  let medianArray = [];
+  let median = 0.0;
 
-//   const scoredPointsArea = document.querySelectorAll(".scoredPointsArea");
+  const scoredPointsArea = document.querySelectorAll(".scoredPointsArea");
 
-//   // Calculating maximum
-//   scoredPointsArea.forEach((e) => {
-//     e = parseInt(e.value, 10) || 0;
-//     maxPoints < e ? (maxPoints = e) : null;
-//   });
-//   maxPointsSummary.textContent = maxPoints;
+  // Calculating maximum
+  scoredPointsArea.forEach((e) => {
+    e = parseInt(e.value, 10) || 0;
+    maxPoints < e ? (maxPoints = e) : null;
+  });
+  maxPointsSummary.textContent = maxPoints;
 
-//   // Calculating minimum
-//   scoredPointsArea.forEach((e) => {
-//     e = parseInt(e.value, 10) || 0;
-//     minPoints > e ? (minPoints = e) : null;
-//   });
-//   minPointsSummary.textContent = minPoints;
+  // Calculating minimum
+  scoredPointsArea.forEach((e) => {
+    e = parseInt(e.value, 10) || 0;
+    minPoints > e ? (minPoints = e) : null;
+  });
+  minPointsSummary.textContent = minPoints;
 
-//   // Calculating average
-//   scoredPointsArea.forEach((e) => {
-//     e = parseInt(e.value, 10) || 0;
-//     average += e;
-//   });
-//   average = average / scoredPointsArea.length;
-//   const averageProcent = (average / maxPointsValue.value) * 100;
-//   averagePointsSummary.textContent = ` ${average.toFixed(
-//     2
-//   )} / ${averageProcent.toFixed(2)}%`;
+  // Calculating average
+  scoredPointsArea.forEach((e) => {
+    e = parseInt(e.value, 10) || 0;
+    average += e;
+  });
+  average = average / scoredPointsArea.length;
+  const averageProcent = (average / maxPointsValue.value) * 100;
+  averagePointsSummary.textContent = ` ${average.toFixed(
+    2
+  )} / ${averageProcent.toFixed(2)}%`;
 
-//   // Calculating median
-//   scoredPointsArea.forEach((e) => {
-//     e = parseInt(e.value, 10) || 0;
-//     medianArray.push(e);
-//   });
-//   medianArray.sort((a, b) => a - b);
+  // Calculating median
+  scoredPointsArea.forEach((e) => {
+    e = parseInt(e.value, 10) || 0;
+    medianArray.push(e);
+  });
+  medianArray.sort((a, b) => a - b);
 
-//   if (medianArray.length % 2 === 0) {
-//     const mid1 = medianArray[medianArray.length / 2 - 1];
-//     const mid2 = medianArray[medianArray.length / 2];
-//     median = (mid1 + mid2) / 2;
-//     median = parseFloat(median);
-//     medianPointsSummary.textContent = median.toFixed(2);
-//   } else {
-//     median = medianArray[Math.floor(medianArray.length / 2)];
-//     median = parseFloat(median);
-//     medianPointsSummary.textContent = median.toFixed(2);
-//   }
+  if (medianArray.length % 2 === 0) {
+    const mid1 = medianArray[medianArray.length / 2 - 1];
+    const mid2 = medianArray[medianArray.length / 2];
+    median = (mid1 + mid2) / 2;
+    median = parseFloat(median);
+    medianPointsSummary.textContent = median.toFixed(2);
+  } else {
+    median = medianArray[Math.floor(medianArray.length / 2)];
+    median = parseFloat(median);
+    medianPointsSummary.textContent = median.toFixed(2);
+  }
 
-//   // Calculating mode
-//   const modeMap = {};
-//   let mostFrequent = null;
-//   let mostFrequentCount = 0;
+  // Calculating mode
+  const modeMap = {};
+  let mostFrequent = null;
+  let mostFrequentCount = 0;
 
-//   medianArray.forEach((num) => {
-//     const n = parseInt(num, 10) || 0;
-//     if (!modeMap[n]) {
-//       modeMap[n] = 0;
-//     }
-//     modeMap[n] += 1;
+  medianArray.forEach((num) => {
+    const n = parseInt(num, 10) || 0;
+    if (!modeMap[n]) {
+      modeMap[n] = 0;
+    }
+    modeMap[n] += 1;
 
-//     if (modeMap[n] > mostFrequentCount) {
-//       mostFrequentCount = modeMap[n];
-//       mostFrequent = n;
-//     }
-//   });
+    if (modeMap[n] > mostFrequentCount) {
+      mostFrequentCount = modeMap[n];
+      mostFrequent = n;
+    }
+  });
 
-//   if (mostFrequentCount <= 1) {
-//     mostFrequent = "—";
-//   }
-//   modePointsSummary.textContent = mostFrequent;
+  if (mostFrequentCount <= 1) {
+    mostFrequent = "—";
+  }
+  modePointsSummary.textContent = mostFrequent;
 
-//   // Calculating sheet level
-//   sheetLevel.textContent =
-//     ((average / maxPointsValue.value) * 100).toFixed(2) + "%";
-// }
+  // Calculating sheet level
+  sheetLevel.textContent =
+    ((average / maxPointsValue.value) * 100).toFixed(2) + "%";
+}
 
-// async function downloadPDF() {
-//   const report = document.querySelector("#reportToPdf");
-//   const clone = report.cloneNode(true);
+// Download to PDF function
+async function downloadPDF() {
+  const report = document.querySelector("#reportToPdf");
+  const clone = report.cloneNode(true);
 
-//   clone.classList.add("pdf-mode");
-//   clone.style.width = "210mm";
-//   clone.style.maxWidth = "210mm";
+  clone.classList.add("pdf-mode");
+  clone.style.width = "210mm";
+  clone.style.maxWidth = "210mm";
+  clone.style.display = "block";
+  clone.style.margin = "0 auto";
 
-//   let bodyZoom = parseFloat(getComputedStyle(document.body).zoom) || 1;
-//   const currentZoom = bodyZoom;
-//   bodyZoom = 1;
-//   document.body.style.zoom = bodyZoom;
+  let bodyZoom = parseFloat(getComputedStyle(document.body).zoom) || 1;
+  const currentZoom = bodyZoom;
+  bodyZoom = 1;
+  document.body.style.zoom = bodyZoom;
+  btnDownload.style.display = "none";
 
-//   clone
-//     .querySelectorAll(
-//       ".taskAnalysisDifficultyTextArea, .studentNameArea, .scoredPointsArea, .taskDifficultyTextArea"
-//     )
-//     .forEach((e) => {
-//       const div = document.createElement("div");
-//       div.style.whiteSpace = "normal";
-//       div.style.wordBreak = "break-word";
-//       div.style.overflowWrap = "anywhere";
-//       div.style.fontSize = "10px";
-//       div.style.textAlign = "center";
-//       div.style.marginBottom = "5px";
-//       // div.style.maxWidth = "300px";
-//       div.textContent = e.value;
+  clone
+    .querySelectorAll(
+      ".taskAnalysisDifficultyTextArea, .studentNameArea, .scoredPointsArea, .taskDifficultyTextArea"
+    )
+    .forEach((e) => {
+      const div = document.createElement("div");
+      div.style.whiteSpace = "normal";
+      div.style.wordBreak = "break-word";
+      div.style.overflowWrap = "anywhere";
+      div.style.fontSize = "10px";
+      div.style.textAlign = "center";
+      div.style.marginBottom = "5px";
+      // div.style.maxWidth = "300px";
+      div.textContent = e.value;
 
-//       e.replaceWith(div);
-//     });
+      e.replaceWith(div);
+    });
 
-//   clone
-//     .querySelectorAll(".scoredPercentageArea, .maxPointsTarget")
-//     .forEach((e) => {
-//       e.style.fontSize = "10px";
-//     });
+  clone
+    .querySelectorAll(".scoredPercentageArea, .maxPointsTarget")
+    .forEach((e) => {
+      e.style.fontSize = "10px";
+    });
 
-//   clone.style.color = "#000";
-//   clone.style.margin = "0";
+  clone.style.color = "#000";
+  clone.style.margin = "0";
 
-//   document.body.appendChild(clone);
+  document.body.appendChild(clone);
 
-//   const options = {
-//     margin: 0,
-//     filename: "raport_matura.pdf",
-//     image: { type: "jpeg", quality: 0.98 },
-//     html2canvas: {
-//       scale: 2,
-//       width: clone.offsetWidth,
-//       scrollX: 0,
-//       scrollY: 0,
-//     },
-//     jsPDF: {
-//       unit: "mm",
-//       format: "a4",
-//       orientation: "portrait",
-//     },
-//     pagebreak: {
-//       mode: ["auto", "css"],
-//     },
-//   };
+  const options = {
+    margin: 0,
+    filename: "raport_matura.pdf",
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: {
+      scale: 2,
+      width: clone.offsetWidth,
+      scrollX: 0,
+      scrollY: 0,
+    },
+    jsPDF: {
+      unit: "mm",
+      format: "a4",
+      orientation: "portrait",
+    },
+    pagebreak: {
+      mode: ["auto", "css"],
+    },
+  };
 
-//   await html2pdf().set(options).from(clone).save();
-//   clone.remove();
-//   document.body.style.zoom = currentZoom;
-// }
+  await html2pdf().set(options).from(clone).save();
+  clone.remove();
+  document.body.style.zoom = currentZoom;
+  btnDownload.style.display = "block";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  for (let i = 1; i <= DEFAULT_ROWS; i++) {
+    tBody.insertAdjacentHTML("beforeend", createRow(i));
+  }
+});
 
 btnGenerate.addEventListener("click", (s) => {
   // REPORT FIRST PART //
@@ -192,6 +215,10 @@ btnGenerate.addEventListener("click", (s) => {
   subjectTarget.textContent = subjectValue.value;
   levelTarget.textContent = levelValue.value;
   studentsAmountTarget = studentsAmountValue.value;
+
+  // Setting the students count in the report
+  const studentsCount = parseInt(studentsAmountValue.value, 10) || 0;
+  studentsAmountTargetCount.textContent = studentsCount;
 
   // Generating student rows, clearing previous rows first
   tBody.innerHTML = "";
@@ -206,9 +233,8 @@ btnGenerate.addEventListener("click", (s) => {
 
     // Creating textarea for student name
     const tdName = document.createElement("td");
-    const tdNameArea = document.createElement("textarea");
+    const tdNameArea = document.createElement("input");
 
-    tdNameArea.style.textAlign = "center";
     tdNameArea.placeholder = "Imię i nazwisko";
     tdNameArea.className = "studentNameArea";
     tdName.appendChild(tdNameArea);
@@ -222,12 +248,9 @@ btnGenerate.addEventListener("click", (s) => {
 
     // Creating textarea for scored points
     const tdScoredPoints = document.createElement("td");
-    const tdScoredPointsArea = document.createElement("textarea");
-    tdScoredPointsArea.placeholder = "0";
-    tdScoredPointsArea.style.width = "100%";
-    tdScoredPointsArea.style.textAlign = "center";
-    tdScoredPointsArea.style.resize = "none";
+    const tdScoredPointsArea = document.createElement("input");
     tdScoredPointsArea.className = "scoredPointsArea";
+    tdScoredPointsArea.placeholder = "0";
     tdScoredPoints.appendChild(tdScoredPointsArea);
     tr.appendChild(tdScoredPoints);
 
@@ -259,38 +282,14 @@ btnGenerate.addEventListener("click", (s) => {
   }
 });
 
-//   // REPORT SECOND PART //
-//   // Setting the students count in the report
-//   const studentsCount = parseInt(studentsAmountValue.value, 10) || 0;
-//   studentsAmountTargetCount.textContent = studentsCount;
-// });
+// REPORT SECOND PART //
 
-// // Download report as PDF
-// btnDownload.addEventListener("click", async () => {
-//   try {
-//     await downloadPDF();
-//     alert("PDF został pomyślnie wygenerowany");
-//   } catch (error) {
-//     alert("Błąd podczas generowania PDF:", error);
-//   }
-// });
-
-// // Fix headers button functionality
-// btnFixHeaders.addEventListener("click", () => {
-//   console.log("Fix headers button clicked");
-//   publisherTarget.textContent = publisherValue.value;
-//   dateTarget.textContent = dateValue.value;
-//   classTarget.textContent = classValue.value;
-//   subjectTarget.textContent = subjectValue.value;
-//   levelTarget.textContent = levelValue.value;
-//   studentsAmountTarget = studentsAmountValue.value;
-// });
-
-// btnDownloadEnd.addEventListener("click", async () => {
-//   try {
-//     await downloadPDF();
-//     alert("PDF został pomyślnie wygenerowany");
-//   } catch (error) {
-//     alert("Błąd podczas generowania PDF:", error);
-//   }
-// })
+// Download report as PDF
+btnDownload.addEventListener("click", async () => {
+  try {
+    await downloadPDF();
+    alert("PDF został pomyślnie wygenerowany");
+  } catch (error) {
+    alert("Błąd podczas generowania PDF:", error);
+  }
+});

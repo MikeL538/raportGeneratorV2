@@ -10,15 +10,22 @@
   <body>
     <header>
       <div class="headerContainer">
-        <svg class="headerLogo">
-          <use
-            href="/icons.svg#iconLogo"
-            width="1365.333"
-            height="1365.333"
-          ></use>
-        </svg>
-
-        <!-- <img src="RaportGeneratorLogo.png" class="headerLogo" /> -->
+        <div class="headerContainerLeft">
+          <svg class="headerLogo">
+            <use
+              href="/icons.svg#iconLogo"
+              width="1365.333"
+              height="1365.333"
+            ></use>
+          </svg>
+        </div>
+        <div class="headerContainerRight">
+          <ul class="headerContainerRightList">
+            <li><a href="/">Formularz</a></li>
+            <li><a href="/">Podsumowanie</a></li>
+            <li><a href="/">Kontakt</a></li>
+          </ul>
+        </div>
       </div>
     </header>
     <main class="main">
@@ -78,6 +85,9 @@
           <button class="buttons" id="btnGenerate" type="submit">
             Generuj raport
           </button>
+          <button class="buttons" id="btnDownload" type="button">
+            POBIERZ
+          </button>
           <!-- <button class="buttons" id="btnDownload" type="button">
             POBIERZ
           </button>
@@ -120,7 +130,7 @@
         <!-- Right Report Output Second Part -->
         <div class="reportBlock2">
           <div id="indicatorsContainer">
-            <h3>2. Ustalenie podstawowych wskaźników ilościowych:</h3>
+            <h3>2. Ustalenie wskaźników ilościowych:</h3>
             <table id="indicatorsTable">
               <tbody>
                 <tr>
@@ -238,9 +248,6 @@
               id="reportPreparedBy"
               placeholder="Imię i nazwisko osoby przygotowującej raport"
             />
-            <button class="buttons" id="btnDownloadEnd" type="button">
-              POBIERZ
-            </button>
           </div>
         </div>
       </div>
