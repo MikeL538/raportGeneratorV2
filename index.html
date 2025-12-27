@@ -12,19 +12,17 @@
       <div class="headerContainer">
         <div class="headerContainerLeft">
           <svg class="headerLogo">
-            <use
-              href="/icons.svg#iconLogo"
-              width="1365.333"
-              height="1365.333"
-            ></use>
+            <use href="/icons.svg#iconLogo"></use>
           </svg>
         </div>
         <div class="headerContainerRight">
-          <ul class="headerContainerRightList">
-            <li><a href="/">Formularz</a></li>
-            <li><a href="/">Podsumowanie</a></li>
-            <li><a href="/">Kontakt</a></li>
-          </ul>
+          <nav>
+            <ul class="headerContainerRightList">
+              <li><a href="/">Formularz</a></li>
+              <li><a href="/">Podsumowanie</a></li>
+              <li><a href="/">Kontakt</a></li>
+            </ul>
+          </nav>
         </div>
       </div>
     </header>
@@ -75,14 +73,26 @@
         </div>
         <div class="dataInput">
           <label for="studentsAmountValue">LICZBA ZDAJĄCYCH</label>
-          <input type="text" placeholder="Np. 8" id="studentsAmountValue" />
+          <input
+            type="number"
+            min="0"
+            step="1"
+            placeholder="Np. 8"
+            id="studentsAmountValue"
+          />
         </div>
         <div class="dataInput">
           <label for="maxPointsValue">MAX PUNKTÓW</label>
-          <input type="text" placeholder="Np. 60" id="maxPointsValue" />
+          <input
+            type="number"
+            min="0"
+            step="1"
+            placeholder="Np. 60"
+            id="maxPointsValue"
+          />
         </div>
         <div class="btnDiv">
-          <button class="buttons" id="btnGenerate" type="submit">
+          <button class="buttons" id="btnGenerate" type="button">
             Generuj raport
           </button>
           <button class="buttons" id="btnDownload" type="button">
@@ -253,7 +263,7 @@
       </div>
     </main>
 
-    <script src="script.js"></script>
+    <script type="module" src="./js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   </body>
 </html>

@@ -1,0 +1,87 @@
+// Target elements for second part report details
+const maxPointsSummary = document.querySelector("#maxPointsSummary");
+const minPointsSummary = document.querySelector("#minPointsSummary");
+const averagePointsSummary = document.querySelector("#averagePointsSummary");
+const medianPointsSummary = document.querySelector("#medianPointsSummary");
+const modePointsSummary = document.querySelector("#modePointsSummary");
+const sheetLevel = document.querySelector("#sheetLevel");
+
+export function generateSecondPart() {
+  let maxPoints = 0;
+  let minPoints = maxPointsValue.value;
+  let average = 0.0;
+  let medianArray = [];
+  let median = 0.0;
+
+  const scoredPointsArea = document.querySelectorAll(".scoredPointsArea");
+
+  // Calculating maximum
+  scoredPointsArea.forEach((e) => {
+    e = parseInt(e.value, 10) || 0;
+    maxPoints < e ? (maxPoints = e) : null;
+  });
+  maxPointsSummary.textContent = maxPoints;
+
+  // Calculating minimum
+  scoredPointsArea.forEach((e) => {
+    e = parseInt(e.value, 10) || 0;
+    minPoints > e ? (minPoints = e) : null;
+  });
+  minPointsSummary.textContent = minPoints;
+
+  // Calculating average
+  scoredPointsArea.forEach((e) => {
+    e = parseInt(e.value, 10) || 0;
+    average += e;
+  });
+  average = average / scoredPointsArea.length;
+  const averageProcent = (average / maxPointsValue.value) * 100;
+  averagePointsSummary.textContent = ` ${average.toFixed(
+    2
+  )} / ${averageProcent.toFixed(2)}%`;
+
+  // Calculating median
+  scoredPointsArea.forEach((e) => {
+    e = parseInt(e.value, 10) || 0;
+    medianArray.push(e);
+  });
+  medianArray.sort((a, b) => a - b);
+
+  if (medianArray.length % 2 === 0) {
+    const mid1 = medianArray[medianArray.length / 2 - 1];
+    const mid2 = medianArray[medianArray.length / 2];
+    median = (mid1 + mid2) / 2;
+    median = parseFloat(median);
+    medianPointsSummary.textContent = median.toFixed(2);
+  } else {
+    median = medianArray[Math.floor(medianArray.length / 2)];
+    median = parseFloat(median);
+    medianPointsSummary.textContent = median.toFixed(2);
+  }
+
+  // Calculating mode
+  const modeMap = {};
+  let mostFrequent = null;
+  let mostFrequentCount = 0;
+
+  medianArray.forEach((num) => {
+    const n = parseInt(num, 10) || 0;
+    if (!modeMap[n]) {
+      modeMap[n] = 0;
+    }
+    modeMap[n] += 1;
+
+    if (modeMap[n] > mostFrequentCount) {
+      mostFrequentCount = modeMap[n];
+      mostFrequent = n;
+    }
+  });
+
+  if (mostFrequentCount <= 1) {
+    mostFrequent = "—";
+  }
+  modePointsSummary.textContent = mostFrequent;
+
+  // Calculating sheet level
+  sheetLevel.textContent = ((average / maxPointsTarget) * 100).toFixed(2) + "%";
+}
