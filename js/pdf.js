@@ -24,7 +24,7 @@ export async function downloadPDF() {
       div.style.whiteSpace = "normal";
       div.style.wordBreak = "break-word";
       div.style.overflowWrap = "anywhere";
-      div.style.fontSize = "10px";
+      // div.style.fontSize = "10px";
       div.style.textAlign = "center";
       div.style.marginBottom = "5px";
       // div.style.maxWidth = "300px";
@@ -36,7 +36,7 @@ export async function downloadPDF() {
   clone
     .querySelectorAll(".scoredPercentageArea, .maxPointsTarget")
     .forEach((e) => {
-      e.style.fontSize = "10px";
+      // e.style.fontSize = "10px";
     });
 
   clone.style.color = "#000";

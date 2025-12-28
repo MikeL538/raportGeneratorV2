@@ -1,3 +1,5 @@
+import { maxPointsTarget } from "./dom.js";
+
 // Target elements for second part report details
 const maxPointsSummary = document.querySelector("#maxPointsSummary");
 const minPointsSummary = document.querySelector("#minPointsSummary");
@@ -83,5 +85,27 @@ export function generateSecondPart() {
   modePointsSummary.textContent = mostFrequent;
 
   // Calculating sheet level
-  sheetLevel.textContent = ((average / maxPointsTarget) * 100).toFixed(2) + "%";
+  const sheetLevelValue = (average / maxPointsTarget) * 100;
+
+  switch (true) {
+    case sheetLevelValue >= 85:
+      sheetLevel.textContent = "Bardzo łatwy";
+      break;
+    case sheetLevelValue >= 75:
+      sheetLevel.textContent = "Łatwy";
+      break;
+    case sheetLevelValue >= 50:
+      sheetLevel.textContent = "Średnie";
+      break;
+    case sheetLevelValue >= 35:
+      sheetLevel.textContent = "Trudne";
+      break;
+    default:
+      sheetLevel.textContent = "Bardzo trudne";
+      break;
+  }
+
+  // if (sheetLevelValue >= 85) {
+  //   sheetLevel.textContent = "Bardzo łatwy";
+  // }
 }

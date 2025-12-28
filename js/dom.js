@@ -4,7 +4,8 @@ const defaultRows = 15;
 const tBody = document.querySelector("#tBody");
 
 // // Input elements for first part report details
-const publisherValue = document.querySelector("#publisherValue");
+export const publisherValue = document.querySelector("#publisherValue");
+const publisherValueInput = document.querySelector("#publisherValueInput");
 const dateValue = document.querySelector("#dateValue");
 const classValue = document.querySelector("#classValue");
 const levelValue = document.querySelector("#levelValue");
@@ -22,7 +23,7 @@ let studentsAmountTarget = 0;
 let studentsAmountTargetCount = document.querySelector(
   "#studentsAmountTargetCount"
 );
-let maxPointsTarget = maxPointsValue.value;
+export let maxPointsTarget = maxPointsValue.value;
 
 // Create placeholders rows after page load up
 export function createRow() {
@@ -44,11 +45,22 @@ export function createRow() {
   }
 }
 
+export function otherPublisherInput() {
+  if (publisherValue.value === "Inne, wprowadź") {
+    publisherValueInput.style.display = "block";
+  } else {
+    publisherValueInput.style.display = "none";
+  }
+}
+
 export function generateRaport(s) {
   // REPORT FIRST PART //
   s.preventDefault();
   // Assigning values from inputs to targets
   publisherTarget.textContent = publisherValue.value;
+  if (publisherValueInput.style.display === "block") {
+    publisherTarget.textContent = publisherValueInput.value;
+  }
   dateTarget.textContent = dateValue.value;
   classTarget.textContent = classValue.value;
   subjectTarget.textContent = subjectValue.value;
@@ -72,11 +84,12 @@ export function generateRaport(s) {
 
     // Creating textarea for student name
     const tdName = document.createElement("td");
-    const tdNameArea = document.createElement("input");
+    const tdNameInput = document.createElement("input");
 
-    tdNameArea.placeholder = "Imię i nazwisko";
-    tdNameArea.className = "studentNameArea";
-    tdName.appendChild(tdNameArea);
+    tdNameInput.placeholder = "Imię i nazwisko";
+    tdNameInput.className = "studentNameArea";
+    tdNameInput.type = "text";
+    tdName.appendChild(tdNameInput);
     tr.appendChild(tdName);
 
     // Creating max points cell
@@ -87,10 +100,13 @@ export function generateRaport(s) {
 
     // Creating textarea for scored points
     const tdScoredPoints = document.createElement("td");
-    const tdScoredPointsArea = document.createElement("input");
-    tdScoredPointsArea.className = "scoredPointsArea";
-    tdScoredPointsArea.placeholder = "0";
-    tdScoredPoints.appendChild(tdScoredPointsArea);
+    const tdScoredPointsInput = document.createElement("input");
+    tdScoredPointsInput.className = "scoredPointsArea";
+    tdScoredPointsInput.placeholder = "0";
+    tdScoredPointsInput.type = "number";
+    tdScoredPointsInput.min = "0";
+    tdScoredPointsInput.step = "1";
+    tdScoredPoints.appendChild(tdScoredPointsInput);
     tr.appendChild(tdScoredPoints);
 
     // Creating percentage cell and adding event listener for real-time calculation
@@ -98,16 +114,23 @@ export function generateRaport(s) {
     tdPercentage.className = "scoredPercentageArea";
     tdPercentage.textContent = "0%";
 
-    tdScoredPointsArea.addEventListener("input", () => {
+    tdScoredPointsInput.addEventListener("input", () => {
+      // Prevent text
+      // const isItNumber = parseInt(tdScoredPointsInput.value);
+
+      // if (isNaN(isItNumber)) {
+      //   tdScoredPointsInput.value = "";
+      // }
+
       // Preventing leading zeros
       if (
-        tdScoredPointsArea.value.length > 1 &&
-        tdScoredPointsArea.value[0] === "0"
+        tdScoredPointsInput.value.length > 1 &&
+        tdScoredPointsInput.value[0] === "0"
       ) {
-        tdScoredPointsArea.value = tdScoredPointsArea.value.slice(1);
+        tdScoredPointsInput.value = tdScoredPointsInput.value.slice(1);
       }
 
-      const scoredPoints = parseInt(tdScoredPointsArea.value);
+      const scoredPoints = parseInt(tdScoredPointsInput.value);
 
       tdPercentage.textContent = isNaN(scoredPoints)
         ? "0%"

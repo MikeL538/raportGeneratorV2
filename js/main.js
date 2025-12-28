@@ -1,4 +1,9 @@
-import { generateRaport, createRow } from "./dom.js ";
+import {
+  generateRaport,
+  createRow,
+  publisherValue,
+  otherPublisherInput,
+} from "./dom.js";
 import { downloadPDF } from "./pdf.js";
 
 const btnGenerate = document.querySelector("#btnGenerate");
@@ -6,6 +11,10 @@ const btnDownload = document.querySelector("#btnDownload");
 
 document.addEventListener("DOMContentLoaded", () => {
   createRow();
+});
+
+publisherValue.addEventListener("change", () => {
+  otherPublisherInput();
 });
 
 btnGenerate.addEventListener("click", (s) => {
