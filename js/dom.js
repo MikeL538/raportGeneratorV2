@@ -23,7 +23,8 @@ let studentsAmountTarget = 0;
 let studentsAmountTargetCount = document.querySelector(
   "#studentsAmountTargetCount"
 );
-export let maxPointsTarget = maxPointsValue.value;
+
+export let maxPointsTarget = 50;
 
 // Create placeholders rows after page load up
 export function createRow() {
@@ -37,7 +38,7 @@ export function createRow() {
       <td>${i}</td>
       <td><input class="studentNameArea" placeholder="Imię i nazwisko"></input></td>
       <td class="maxPointsTarget">0</td>
-      <td><input class="scoredPointsArea" placeholder="0"></input></td>
+      <td><input class="scoredPointsInput" placeholder="0"></input></td>
       <td class="scoredPercentageArea">0%</td>
     </tr>
   `
@@ -101,7 +102,7 @@ export function generateRaport(s) {
     // Creating textarea for scored points
     const tdScoredPoints = document.createElement("td");
     const tdScoredPointsInput = document.createElement("input");
-    tdScoredPointsInput.className = "scoredPointsArea";
+    tdScoredPointsInput.className = "scoredPointsInput";
     tdScoredPointsInput.placeholder = "0";
     tdScoredPointsInput.type = "number";
     tdScoredPointsInput.min = "0";
@@ -121,6 +122,16 @@ export function generateRaport(s) {
       // if (isNaN(isItNumber)) {
       //   tdScoredPointsInput.value = "";
       // }
+
+      // WARNING if above max
+      const tdScoredPointsInputPointsIntoNumber = parseInt(
+        tdScoredPointsInput.value
+      );
+      if (tdScoredPointsInputPointsIntoNumber > maxPointsTarget) {
+        tdScoredPointsInput.classList.add("errorScoredPointsInput");
+      } else {
+        tdScoredPointsInput.classList.remove("errorScoredPointsInput");
+      }
 
       // Preventing leading zeros
       if (

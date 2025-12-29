@@ -15,7 +15,7 @@ export function generateSecondPart() {
   let medianArray = [];
   let median = 0.0;
 
-  const scoredPointsArea = document.querySelectorAll(".scoredPointsArea");
+  const scoredPointsArea = document.querySelectorAll(".scoredPointsInput");
 
   // Calculating maximum
   scoredPointsArea.forEach((e) => {
