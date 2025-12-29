@@ -1,16 +1,18 @@
 import {
   generateRaport,
-  createRow,
   publisherValue,
   otherPublisherInput,
+  deleteStudent,
 } from "./dom.js";
 import { downloadPDF } from "./pdf.js";
 
 const btnGenerate = document.querySelector("#btnGenerate");
 const btnDownload = document.querySelector("#btnDownload");
+const tdDeleteButtons = document.querySelectorAll(".tdDeleteButton");
 
-document.addEventListener("DOMContentLoaded", () => {
-  createRow();
+document.addEventListener("DOMContentLoaded", (s) => {
+  generateRaport(s);
+  deleteStudent();
 });
 
 publisherValue.addEventListener("change", () => {

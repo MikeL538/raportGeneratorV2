@@ -4,8 +4,8 @@ export async function downloadPDF() {
   const clone = report.cloneNode(true);
 
   clone.classList.add("pdf-mode");
-  clone.style.width = "210mm";
-  clone.style.maxWidth = "210mm";
+  clone.style.width = "200mm";
+  clone.style.maxWidth = "200mm";
   clone.style.display = "block";
   clone.style.margin = "0 auto";
 
@@ -13,7 +13,6 @@ export async function downloadPDF() {
   const currentZoom = bodyZoom;
   bodyZoom = 1;
   document.body.style.zoom = bodyZoom;
-  btnDownload.style.display = "none";
 
   clone
     .querySelectorAll(
@@ -21,26 +20,10 @@ export async function downloadPDF() {
     )
     .forEach((e) => {
       const div = document.createElement("div");
-      div.style.whiteSpace = "normal";
-      div.style.wordBreak = "break-word";
-      div.style.overflowWrap = "anywhere";
-      // div.style.fontSize = "10px";
-      div.style.textAlign = "center";
       div.style.marginBottom = "5px";
-      // div.style.maxWidth = "300px";
       div.textContent = e.value;
-
       e.replaceWith(div);
     });
-
-  clone
-    .querySelectorAll(".scoredPercentageArea, .maxPointsTarget")
-    .forEach((e) => {
-      // e.style.fontSize = "10px";
-    });
-
-  clone.style.color = "#000";
-  clone.style.margin = "0";
 
   document.body.appendChild(clone);
 
@@ -50,7 +33,7 @@ export async function downloadPDF() {
     image: { type: "jpeg", quality: 0.98 },
     html2canvas: {
       scale: 2,
-      width: clone.offsetWidth,
+      // width: clone.offsetWidth,
       scrollX: 0,
       scrollY: 0,
     },
@@ -67,5 +50,4 @@ export async function downloadPDF() {
   await html2pdf().set(options).from(clone).save();
   clone.remove();
   document.body.style.zoom = currentZoom;
-  btnDownload.style.display = "block";
 }

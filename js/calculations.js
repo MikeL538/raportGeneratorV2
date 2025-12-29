@@ -104,8 +104,4 @@ export function generateSecondPart() {
       sheetLevel.textContent = "Bardzo trudne";
       break;
   }
-
-  // if (sheetLevelValue >= 85) {
-  //   sheetLevel.textContent = "Bardzo łatwy";
-  // }
 }

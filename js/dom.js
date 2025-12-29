@@ -1,9 +1,8 @@
 import { generateSecondPart } from "./calculations.js";
 
-const defaultRows = 15;
 const tBody = document.querySelector("#tBody");
 
-// // Input elements for first part report details
+// Input elements for first part report details
 export const publisherValue = document.querySelector("#publisherValue");
 const publisherValueInput = document.querySelector("#publisherValueInput");
 const dateValue = document.querySelector("#dateValue");
@@ -13,7 +12,7 @@ const subjectValue = document.querySelector("#subjectValue");
 const studentsAmountValue = document.querySelector("#studentsAmountValue");
 const maxPointsValue = document.querySelector("#maxPointsValue");
 
-// // Target elements for first part report details
+// Target elements for first part report details
 const publisherTarget = document.querySelector("#publisherTarget");
 const dateTarget = document.querySelector("#dateTarget");
 const classTarget = document.querySelector("#classTarget");
@@ -23,28 +22,16 @@ let studentsAmountTarget = 0;
 let studentsAmountTargetCount = document.querySelector(
   "#studentsAmountTargetCount"
 );
-
 export let maxPointsTarget = 50;
 
-// Create placeholders rows after page load up
-export function createRow() {
-  //   return ;
-
-  for (let i = 1; i <= defaultRows; i++) {
-    tBody.insertAdjacentHTML(
-      "beforeend",
-      `
-    <tr>
-      <td>${i}</td>
-      <td><input class="studentNameArea" placeholder="Imię i nazwisko"></input></td>
-      <td class="maxPointsTarget">0</td>
-      <td><input class="scoredPointsInput" placeholder="0"></input></td>
-      <td class="scoredPercentageArea">0%</td>
-    </tr>
-  `
-    );
-  }
-}
+// Setting start values on load up
+publisherValue.value = "Operon";
+dateValue.value = "2025-12-29";
+classValue.value = "4A";
+subjectValue.value = "Informatyki";
+levelValue.value = "Podstawowy";
+studentsAmountValue.value = 20;
+maxPointsValue.value = 50;
 
 export function otherPublisherInput() {
   if (publisherValue.value === "Inne, wprowadź") {
@@ -79,7 +66,15 @@ export function generateRaport(s) {
   for (let i = 0; i < studentsAmountTarget; i++) {
     // Creating table row and cells
     const tr = document.createElement("tr");
+
+    // Delete td button for students
+    const tdDelete = document.createElement("td");
+    tdDelete.innerHTML = `<button class="tdButton">x</button>`;
+    tr.appendChild(tdDelete);
+
+    // Numering table
     const td = document.createElement("td");
+    td.classList.add("tdNumeric");
     td.textContent = i + 1;
     tr.appendChild(td);
 
@@ -115,14 +110,15 @@ export function generateRaport(s) {
     tdPercentage.className = "scoredPercentageArea";
     tdPercentage.textContent = "0%";
 
+    // Prevent letters into achieved points input
+    tdScoredPointsInput.addEventListener("beforeinput", (e) => {
+      if (!/^\d*$/.test(e.data ?? "")) {
+        e.preventDefault();
+      }
+    });
+
+    //====== Input to achieved points function =======
     tdScoredPointsInput.addEventListener("input", () => {
-      // Prevent text
-      // const isItNumber = parseInt(tdScoredPointsInput.value);
-
-      // if (isNaN(isItNumber)) {
-      //   tdScoredPointsInput.value = "";
-      // }
-
       // WARNING if above max
       const tdScoredPointsInputPointsIntoNumber = parseInt(
         tdScoredPointsInput.value
@@ -153,4 +149,21 @@ export function generateRaport(s) {
 
     tBody.appendChild(tr);
   }
+}
+
+export function deleteStudent() {
+  tBody.addEventListener("click", (e) => {
+    if (e.target.classList.contains("tdButton")) {
+      e.target.closest("tr").remove();
+
+      const tdNumeric = document.querySelectorAll(".tdNumeric");
+      let i = 1;
+      tdNumeric.forEach((e) => {
+        e.textContent = i;
+        i++;
+      });
+
+      generateSecondPart();
+    }
+  });
 }
