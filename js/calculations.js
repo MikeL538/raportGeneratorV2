@@ -1,5 +1,3 @@
-import { maxPointsTarget } from "./dom.js";
-
 // Target elements for second part report details
 const maxPointsSummary = document.querySelector("#maxPointsSummary");
 const minPointsSummary = document.querySelector("#minPointsSummary");
@@ -8,7 +6,14 @@ const medianPointsSummary = document.querySelector("#medianPointsSummary");
 const modePointsSummary = document.querySelector("#modePointsSummary");
 const sheetLevel = document.querySelector("#sheetLevel");
 
-export function generateSecondPart() {
+function countStudents() {
+  const StudentsArray = document.querySelectorAll(".scoredPointsInput");
+
+  return StudentsArray.length;
+}
+
+export function generateSecondPart(maxPointsTarget) {
+  console.log(maxPointsTarget);
   let maxPoints = 0;
   let minPoints = maxPointsValue.value;
   let average = 0.0;

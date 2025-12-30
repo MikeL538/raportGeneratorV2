@@ -50,7 +50,13 @@
         </div>
         <div class="dataInput">
           <label for="dateValue">Data</label>
-          <input type="date" placeholder="DD.MM.RRRR" id="dateValue" />
+          <input
+            type="text"
+            name="daterange"
+            value="01/01/2018 - 01/15/2018"
+            placeholder="DD.MM.RRRR"
+            id="dateValue"
+          />
         </div>
         <div class="dataInput">
           <label for="classValue">Klasa</label>
@@ -115,7 +121,7 @@
             <table>
               <thead>
                 <tr>
-                  <th><button class="tdButton">+</button></th>
+                  <th><button class="tdButton" data-action="add">+</button></th>
                   <th>Lp.</th>
                   <th>Imię i nazwisko</th>
                   <th>Maks punktów</th>
@@ -182,7 +188,7 @@
                     <td>
                       <textarea
                         class="taskDifficultyTextArea"
-                        placeholder="Wpisz numer zadań"
+                        placeholder="Wpisz numer zadania"
                       ></textarea>
                     </td>
                   </tr>
@@ -191,7 +197,7 @@
                     <td>
                       <textarea
                         class="taskDifficultyTextArea"
-                        placeholder="Wpisz numer zadań"
+                        placeholder="Wpisz numer zadania"
                       ></textarea>
                     </td>
                   </tr>
@@ -200,7 +206,7 @@
                     <td>
                       <textarea
                         class="taskDifficultyTextArea"
-                        placeholder="Wpisz numer zadań"
+                        placeholder="Wpisz numer zadania"
                       ></textarea>
                     </td>
                   </tr>
@@ -209,7 +215,7 @@
                     <td>
                       <textarea
                         class="taskDifficultyTextArea"
-                        placeholder="Wpisz numer zadań"
+                        placeholder="Wpisz numer zadania"
                       ></textarea>
                     </td>
                   </tr>
@@ -218,7 +224,7 @@
                     <td>
                       <textarea
                         class="taskDifficultyTextArea"
-                        placeholder="Wpisz numer zadań"
+                        placeholder="Wpisz numer zadania"
                       ></textarea>
                     </td>
                   </tr>
@@ -256,5 +262,22 @@
 
     <script type="module" src="./js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+    />
   </body>
 </html>
