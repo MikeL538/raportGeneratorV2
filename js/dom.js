@@ -29,8 +29,8 @@ export let maxPointsTarget = 50;
 publisherValue.value = "Operon";
 dateValue.value = "2025-12-29";
 classValue.value = "4A";
-subjectValue.value = "Informatyki";
-levelValue.value = "Podstawowy";
+subjectValue.value = "informatyki";
+levelValue.value = "podstawowy";
 studentsAmountValue.value = 3;
 maxPointsValue.value = 50;
 
@@ -122,6 +122,26 @@ function studentsTableGenerator() {
   tBody.appendChild(tr);
 }
 
+// Date range picker function
+$(function () {
+  $('input[name="daterange"]').daterangepicker(
+    {
+      opens: "left",
+      locale: {
+        format: "DD.MM.YYYY",
+      },
+    },
+    function (start, end, label) {
+      console.log(
+        "A new date selection was made: " +
+          start.format("YYYY-MM-DD") +
+          " to " +
+          end.format("YYYY-MM-DD")
+      );
+    }
+  );
+});
+
 // Function for showing input if wanted Publisher is not on the list
 export function otherPublisherInput() {
   if (publisherValue.value === "Inne, wprowadź") {
@@ -163,25 +183,6 @@ export function generateRaport() {
   tdNumeric.forEach((e) => {
     e.textContent = i;
     i++;
-  });
-
-  $(function () {
-    $('input[name="daterange"]').daterangepicker(
-      {
-        opens: "left",
-        locale: {
-          format: "DD.MM.YYYY",
-        },
-      },
-      function (start, end, label) {
-        console.log(
-          "A new date selection was made: " +
-            start.format("YYYY-MM-DD") +
-            " to " +
-            end.format("YYYY-MM-DD")
-        );
-      }
-    );
   });
 }
 
