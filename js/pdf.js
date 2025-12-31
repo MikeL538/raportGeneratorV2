@@ -13,6 +13,7 @@ export async function downloadPDF() {
   const currentZoom = bodyZoom;
   bodyZoom = 1;
   document.body.style.zoom = bodyZoom;
+  // clone.span.style.textDecoration = "none";
 
   clone
     .querySelectorAll(

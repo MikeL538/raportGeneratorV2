@@ -1,9 +1,4 @@
-import {
-  generateRaport,
-  // deleteStudent,
-  // addStudent,
-  // setPublisher,
-} from "./dom.js";
+import { generateRaport } from "./dom.js";
 import { downloadPDF } from "./pdf.js";
 
 const btnGenerate = document.querySelector("#btnGenerate");
@@ -33,12 +28,12 @@ Możesz edytować tabelę bez utraty danych poprzez przyciski w tabeli.`
   });
 
   // Download in PDF button
-  btnDownload.addEventListener("click", async () => {
-    try {
-      await downloadPDF();
-      alert("PDF został pomyślnie wygenerowany");
-    } catch (error) {
-      alert("Błąd podczas generowania PDF:", error);
-    }
-  });
+});
+btnDownload.addEventListener("click", async () => {
+  try {
+    await downloadPDF();
+    alert("PDF został pomyślnie wygenerowany");
+  } catch (error) {
+    alert("Błąd podczas generowania PDF:", error);
+  }
 });

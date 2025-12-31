@@ -201,12 +201,21 @@ h1 {
   margin-bottom: 10px;
 }
 
-.reportBlock1 > h1 > span,
-.reportBlock1 > h2 > span,
-.reportBlock1 > h3 > span {
+.test > h1 > span,
+.test > h2 > span,
+.test > h3 > span {
   font-size: var(--headersFontSize);
   font-weight: bold;
   text-decoration: underline;
+  font-size: var(--headersFontSize);
+}
+
+.test {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 10px;
 }
 
 .reportBlock1 {
