@@ -6,11 +6,12 @@ const medianPointsSummary = document.querySelector("#medianPointsSummary");
 const modePointsSummary = document.querySelector("#modePointsSummary");
 const sheetLevel = document.querySelector("#sheetLevel");
 
-function countStudents() {
-  const StudentsArray = document.querySelectorAll(".scoredPointsInput");
+// For future refactor
+// function countStudents() {
+//   const StudentsArray = document.querySelectorAll(".scoredPointsInput");
 
-  return StudentsArray.length;
-}
+//   return StudentsArray.length;
+// }
 
 export function generateSecondPart(maxPointsTarget) {
   let maxPoints = 0;
@@ -43,8 +44,8 @@ export function generateSecondPart(maxPointsTarget) {
   average = average / scoredPointsArea.length;
   const averageProcent = (average / maxPointsValue.value) * 100;
   averagePointsSummary.textContent = ` ${average.toFixed(
-    2
-  )} / ${averageProcent.toFixed(2)}%`;
+    0
+  )} / ${averageProcent.toFixed(0)}%`;
 
   // Calculating median
   scoredPointsArea.forEach((e) => {
@@ -58,11 +59,11 @@ export function generateSecondPart(maxPointsTarget) {
     const mid2 = medianArray[medianArray.length / 2];
     median = (mid1 + mid2) / 2;
     median = parseFloat(median);
-    medianPointsSummary.textContent = median.toFixed(2);
+    medianPointsSummary.textContent = median.toFixed(0);
   } else {
     median = medianArray[Math.floor(medianArray.length / 2)];
     median = parseFloat(median);
-    medianPointsSummary.textContent = median.toFixed(2);
+    medianPointsSummary.textContent = median.toFixed(0);
   }
 
   // Calculating mode

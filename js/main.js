@@ -8,8 +8,6 @@ const btnDownload = document.querySelector("#btnDownload");
 document.addEventListener("DOMContentLoaded", () => {
   // DOM.js basic functions
   generateRaport();
-  // addStudent();
-  // deleteStudent();
 
   // Generate raport button
   btnGenerate.addEventListener("click", () => {
@@ -26,9 +24,9 @@ Możesz edytować tabelę bez utraty danych poprzez przyciski w tabeli.`
 
     generateRaport();
   });
-
-  // Download in PDF button
 });
+
+// Download in PDF button
 btnDownload.addEventListener("click", async () => {
   try {
     await downloadPDF();

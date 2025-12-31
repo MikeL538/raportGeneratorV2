@@ -157,20 +157,21 @@ function setMaxPoints() {
   });
 }
 
+function scoresBlockAboveMax(tdScoredPointsInput, maxPointsTarget) {
+  const tdScoredPointsInputValue = parseInt(tdScoredPointsInput.value);
+
+  if (tdScoredPointsInputValue > maxPointsTarget) {
+    tdScoredPointsInput.value = maxPointsTarget;
+  }
+}
+
 //====== function to calculate in real time scores for table 2. =======
 function calculatePercentage(tdScoredPointsInput, maxPointsTarget) {
   tdScoredPointsInput.addEventListener("input", () => {
     // WARNING if above max
     maxPointsTarget = maxPointsValue.value;
 
-    const tdScoredPointsInputPointsIntoNumber = parseInt(
-      tdScoredPointsInput.value
-    );
-    if (tdScoredPointsInputPointsIntoNumber > maxPointsTarget) {
-      tdScoredPointsInput.classList.add("errorScoredPointsInput");
-    } else {
-      tdScoredPointsInput.classList.remove("errorScoredPointsInput");
-    }
+    scoresBlockAboveMax(tdScoredPointsInput, maxPointsTarget);
 
     // Preventing leading zeros
     if (
@@ -181,8 +182,11 @@ function calculatePercentage(tdScoredPointsInput, maxPointsTarget) {
     }
 
     const scoredPoints = parseInt(tdScoredPointsInput.value);
-    const tdPercentage = document.querySelector(".scoredPercentageArea");
-    tdPercentage.textContent = isNaN(scoredPoints)
+
+    const row = tdScoredPointsInput.closest("tr");
+
+    const tdPercentage = row.querySelector(".scoredPercentageArea");
+    tdPercentage.textContent = !scoredPoints
       ? "0%"
       : `${((scoredPoints / maxPointsTarget) * 100).toFixed(0)}%`;
 
@@ -238,7 +242,6 @@ function addStudent() {
 
 // Function to Generate whole report with datas
 export function generateRaport() {
-  // REPORT FIRST PART //
   // Setters for raport
   setPublisher();
   setDate();

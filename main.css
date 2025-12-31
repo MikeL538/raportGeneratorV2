@@ -292,10 +292,6 @@ th {
   margin: 0;
 }
 
-.errorScoredPointsInput {
-  background-color: red;
-}
-
 .studentNameArea {
   border: none;
   display: block;
