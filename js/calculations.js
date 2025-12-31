@@ -13,7 +13,6 @@ function countStudents() {
 }
 
 export function generateSecondPart(maxPointsTarget) {
-  console.log(maxPointsTarget);
   let maxPoints = 0;
   let minPoints = maxPointsValue.value;
   let average = 0.0;

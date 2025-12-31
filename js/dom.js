@@ -122,46 +122,88 @@ function studentsTableGenerator() {
   tBody.appendChild(tr);
 }
 
-// Date range picker function
-$(function () {
+function setPublisher() {
+  publisherValue.addEventListener("change", () => {
+    if (publisherValue.value === "Inne, wprowadź") {
+      publisherValueInput.style.display = "block";
+      publisherValueInput.addEventListener("input", () => {
+        publisherTarget.textContent = publisherValueInput.value;
+      });
+    } else {
+      publisherValueInput.style.display = "none";
+      publisherTarget.textContent = publisherValue.value;
+    }
+  });
+}
+
+// Date range picker function + set date in the raport
+function setDate() {
   $('input[name="daterange"]').daterangepicker(
     {
+      locale: { format: "DD.MM.YYYY" },
       opens: "left",
-      locale: {
-        format: "DD.MM.YYYY",
-      },
     },
-    function (start, end, label) {
-      console.log(
-        "A new date selection was made: " +
-          start.format("YYYY-MM-DD") +
-          " to " +
-          end.format("YYYY-MM-DD")
-      );
+    function (start, end) {
+      dateTarget.textContent = `${start.format("DD.MM.YYYY")} - ${end.format(
+        "DD.MM.YYYY"
+      )}`;
     }
   );
-});
+}
 
-// Function for showing input if wanted Publisher is not on the list
-export function otherPublisherInput() {
-  if (publisherValue.value === "Inne, wprowadź") {
-    publisherValueInput.style.display = "block";
-  } else {
-    publisherValueInput.style.display = "none";
-  }
+function setClass() {
+  classValue.addEventListener("input", () => {
+    classTarget.textContent = classValue.value;
+  });
+}
+
+// Delete student with the "x" button from the table (one by one)
+function deleteStudent() {
+  tBody.addEventListener("click", (e) => {
+    if (e.target.dataset.action === "remove") {
+      e.target.closest("tr").remove();
+
+      const tdNumeric = document.querySelectorAll(".tdNumeric");
+      let i = 1;
+      tdNumeric.forEach((e) => {
+        e.textContent = i;
+        i++;
+      });
+
+      generateSecondPart(maxPointsTarget);
+    }
+  });
+}
+
+// Add student to the students table
+function addStudent() {
+  thAddStudentBtn.addEventListener("click", (e) => {
+    studentsTableGenerator();
+
+    const tdNumeric = document.querySelectorAll(".tdNumeric");
+    let i = 1;
+    tdNumeric.forEach((e) => {
+      e.textContent = i;
+      i++;
+    });
+
+    generateSecondPart(maxPointsTarget);
+  });
 }
 
 // Function to Generate whole report with datas
 export function generateRaport() {
   // REPORT FIRST PART //
+  // Setters for raport
+  setPublisher();
+  setDate();
+  setClass();
 
+  // basic funcitons
+  addStudent();
+  deleteStudent();
   // Assigning values from inputs to targets
-  publisherTarget.textContent = publisherValue.value;
-  if (publisherValueInput.style.display === "block") {
-    publisherTarget.textContent = publisherValueInput.value;
-  }
-  dateTarget.textContent = dateValue.value;
-  classTarget.textContent = classValue.value;
+
   subjectTarget.textContent = subjectValue.value;
   levelTarget.textContent = levelValue.value;
   studentsAmountTarget = studentsAmountValue.value;
@@ -183,39 +225,5 @@ export function generateRaport() {
   tdNumeric.forEach((e) => {
     e.textContent = i;
     i++;
-  });
-}
-
-// Delete student with the "x" button from the table (one by one)
-export function deleteStudent() {
-  tBody.addEventListener("click", (e) => {
-    if (e.target.dataset.action === "remove") {
-      e.target.closest("tr").remove();
-
-      const tdNumeric = document.querySelectorAll(".tdNumeric");
-      let i = 1;
-      tdNumeric.forEach((e) => {
-        e.textContent = i;
-        i++;
-      });
-
-      generateSecondPart(maxPointsTarget);
-    }
-  });
-}
-
-// Add student to the students table
-export function addStudent() {
-  thAddStudentBtn.addEventListener("click", (e) => {
-    studentsTableGenerator();
-
-    const tdNumeric = document.querySelectorAll(".tdNumeric");
-    let i = 1;
-    tdNumeric.forEach((e) => {
-      e.textContent = i;
-      i++;
-    });
-
-    generateSecondPart(maxPointsTarget);
   });
 }

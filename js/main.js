@@ -1,9 +1,8 @@
 import {
   generateRaport,
-  publisherValue,
-  otherPublisherInput,
-  deleteStudent,
-  addStudent,
+  // deleteStudent,
+  // addStudent,
+  // setPublisher,
 } from "./dom.js";
 import { downloadPDF } from "./pdf.js";
 
@@ -12,27 +11,34 @@ const btnDownload = document.querySelector("#btnDownload");
 
 // Initial raport generation on page load, listeners for buttons
 document.addEventListener("DOMContentLoaded", () => {
+  // DOM.js basic functions
   generateRaport();
-  addStudent();
-  deleteStudent();
-});
+  // addStudent();
+  // deleteStudent();
 
-// If other Publisher than one from the list is needed
-publisherValue.addEventListener("change", () => {
-  otherPublisherInput();
-});
+  // Generate raport button
+  btnGenerate.addEventListener("click", () => {
+    // Alert about deleting previous data in the students table
+    const proceed = confirm(
+      `WSZYSTKIE DANE W TABELI ZOSTANĄ USUNIĘTE.
+Czy na pewno chcesz kontynuować? 
+      
+Możesz edytować tabelę bez utraty danych poprzez przyciski w tabeli.`
+    );
+    if (!proceed) {
+      return;
+    }
 
-// Generate raport button
-btnGenerate.addEventListener("click", (s) => {
-  generateRaport(s);
-});
+    generateRaport();
+  });
 
-// Download in PDF button
-btnDownload.addEventListener("click", async () => {
-  try {
-    await downloadPDF();
-    alert("PDF został pomyślnie wygenerowany");
-  } catch (error) {
-    alert("Błąd podczas generowania PDF:", error);
-  }
+  // Download in PDF button
+  btnDownload.addEventListener("click", async () => {
+    try {
+      await downloadPDF();
+      alert("PDF został pomyślnie wygenerowany");
+    } catch (error) {
+      alert("Błąd podczas generowania PDF:", error);
+    }
+  });
 });
