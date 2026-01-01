@@ -31,7 +31,7 @@ dateValue.value = "29.12.2025 - 31.12.2025";
 classValue.value = "4A";
 subjectValue.value = "informatyki";
 levelValue.value = "podstawowy";
-studentsAmountValue.value = 15;
+studentsAmountValue.value = 1;
 maxPointsValue.value = 50;
 
 //====== Setters for table 1 =======

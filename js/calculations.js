@@ -30,46 +30,52 @@ function calcLowestScore(maxPointsValue) {
   minPointsSummary.textContent = lowestScore;
 }
 
-export function generateSecondPart(maxPointsTarget) {
+// Calculate average
+function calcAverageScore(maxPointsValue) {
   let average = 0.0;
-  let medianArray = [];
-  let median = 0.0;
 
   const scoredPointsArea = document.querySelectorAll(".scoredPointsInput");
 
-  calcHighestScore();
-  calcLowestScore(maxPointsTarget);
-  // Calculating average
   scoredPointsArea.forEach((e) => {
     e = parseInt(e.value, 10) || 0;
     average += e;
   });
   average = average / scoredPointsArea.length;
-  const averageProcent = (average / maxPointsValue.value) * 100;
+
+  const averageProcent = (average / maxPointsValue) * 100;
   averagePointsSummary.textContent = ` ${average.toFixed(
     0
   )} / ${averageProcent.toFixed(0)}%`;
 
-  // Calculating median
+  return average;
+}
+
+// Calculate median and mode
+function calcMedianAndModeScore() {
+  const scoredPointsArea = document.querySelectorAll(".scoredPointsInput");
+
+  let medianArray = [];
+  let median = 0.0;
+
   scoredPointsArea.forEach((e) => {
     e = parseInt(e.value, 10) || 0;
     medianArray.push(e);
   });
   medianArray.sort((a, b) => a - b);
 
+  // Add coma if even, Else skip coma
   if (medianArray.length % 2 === 0) {
     const mid1 = medianArray[medianArray.length / 2 - 1];
     const mid2 = medianArray[medianArray.length / 2];
     median = (mid1 + mid2) / 2;
     median = parseFloat(median);
-    medianPointsSummary.textContent = median.toFixed(0);
+    medianPointsSummary.textContent = median.toFixed(1);
   } else {
     median = medianArray[Math.floor(medianArray.length / 2)];
     median = parseFloat(median);
     medianPointsSummary.textContent = median.toFixed(0);
   }
 
-  // Calculating mode
   const modeMap = {};
   let mostFrequent = null;
   let mostFrequentCount = 0;
@@ -90,9 +96,18 @@ export function generateSecondPart(maxPointsTarget) {
   if (mostFrequentCount <= 1) {
     mostFrequent = "—";
   }
-  modePointsSummary.textContent = mostFrequent;
 
-  // Calculating sheet level
+  const modes = Object.keys(modeMap).filter(
+    (key) => modeMap[key] === mostFrequentCount
+  );
+
+  modePointsSummary.textContent = modes.length === 1 ? modes[0] : "—";
+}
+
+// Set sheet level
+function setSheetLevelValue(maxPointsTarget) {
+  const average = calcAverageScore(maxPointsTarget);
+
   const sheetLevelValue = (average / maxPointsTarget) * 100;
 
   switch (true) {
@@ -112,4 +127,12 @@ export function generateSecondPart(maxPointsTarget) {
       sheetLevel.textContent = "Bardzo trudne";
       break;
   }
+}
+
+export function generateSecondPart(maxPointsTarget) {
+  calcHighestScore();
+  calcLowestScore(maxPointsTarget);
+  calcAverageScore(maxPointsTarget);
+  calcMedianAndModeScore();
+  setSheetLevelValue(maxPointsTarget);
 }
