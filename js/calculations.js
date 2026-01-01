@@ -6,36 +6,39 @@ const medianPointsSummary = document.querySelector("#medianPointsSummary");
 const modePointsSummary = document.querySelector("#modePointsSummary");
 const sheetLevel = document.querySelector("#sheetLevel");
 
-// For future refactor
-// function countStudents() {
-//   const StudentsArray = document.querySelectorAll(".scoredPointsInput");
+// Calculate highest score
+function calcHighestScore() {
+  let highestPoints = 0;
+  const scoredPointsArea = document.querySelectorAll(".scoredPointsInput");
 
-//   return StudentsArray.length;
-// }
+  scoredPointsArea.forEach((e) => {
+    e = parseInt(e.value, 10) || 0;
+    highestPoints < e ? (highestPoints = e) : null;
+  });
+  maxPointsSummary.textContent = highestPoints;
+}
+
+// Calculate lowest score
+function calcLowestScore(maxPointsValue) {
+  let lowestScore = maxPointsValue;
+  const scoredPointsArea = document.querySelectorAll(".scoredPointsInput");
+
+  scoredPointsArea.forEach((e) => {
+    e = parseInt(e.value, 10) || 0;
+    lowestScore > e ? (lowestScore = e) : null;
+  });
+  minPointsSummary.textContent = lowestScore;
+}
 
 export function generateSecondPart(maxPointsTarget) {
-  let maxPoints = 0;
-  let minPoints = maxPointsValue.value;
   let average = 0.0;
   let medianArray = [];
   let median = 0.0;
 
   const scoredPointsArea = document.querySelectorAll(".scoredPointsInput");
 
-  // Calculating maximum
-  scoredPointsArea.forEach((e) => {
-    e = parseInt(e.value, 10) || 0;
-    maxPoints < e ? (maxPoints = e) : null;
-  });
-  maxPointsSummary.textContent = maxPoints;
-
-  // Calculating minimum
-  scoredPointsArea.forEach((e) => {
-    e = parseInt(e.value, 10) || 0;
-    minPoints > e ? (minPoints = e) : null;
-  });
-  minPointsSummary.textContent = minPoints;
-
+  calcHighestScore();
+  calcLowestScore(maxPointsTarget);
   // Calculating average
   scoredPointsArea.forEach((e) => {
     e = parseInt(e.value, 10) || 0;

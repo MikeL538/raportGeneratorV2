@@ -53,7 +53,32 @@ function setPublisher() {
 function setDate() {
   $('input[name="daterange"]').daterangepicker(
     {
-      locale: { format: "DD.MM.YYYY" },
+      locale: {
+        format: "DD.MM.YYYY",
+        separator: " - ",
+        applyLabel: "Zastosuj",
+        cancelLabel: "Anuluj",
+        fromLabel: "Od",
+        toLabel: "Do",
+        customRangeLabel: "Własny",
+        weekLabel: "T",
+        daysOfWeek: ["Nd", "Pn", "Wt", "Śr", "Cz", "Pt", "So"],
+        monthNames: [
+          "Styczeń",
+          "Luty",
+          "Marzec",
+          "Kwiecień",
+          "Maj",
+          "Czerwiec",
+          "Lipiec",
+          "Sierpień",
+          "Wrzesień",
+          "Październik",
+          "Listopad",
+          "Grudzień",
+        ],
+        firstDay: 1,
+      },
       opens: "left",
     },
     function (start, end) {

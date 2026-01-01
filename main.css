@@ -111,7 +111,7 @@ main {
 }
 
 h1 {
-  font-size: 22px;
+  font-size: var(--headersFontSize);
   margin: 0 0 20px 0;
 }
 
@@ -194,23 +194,20 @@ h1 {
   width: 100%;
 }
 
-#reportToPdf > div > h1,
-#reportToPdf > div > h2,
-#reportToPdf > div > h3 {
+.reportHeadersDiv > h1,
+.reportHeadersDiv > h2,
+.reportHeadersDiv > h3 {
   font-size: var(--headersFontSize);
   margin-bottom: 10px;
 }
 
-.test > h1 > span,
-.test > h2 > span,
-.test > h3 > span {
+.reportHeadersSpan {
   font-size: var(--headersFontSize);
   font-weight: bold;
   text-decoration: underline;
-  font-size: var(--headersFontSize);
 }
 
-.test {
+.reportHeadersDiv {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -382,11 +379,7 @@ h4 {
 
 .pdf-mode * {
   box-sizing: border-box;
-  /* font-size: 9px !important; */
   padding: 3px;
-  /* font-size: 8(var(--headersFontSize) - 2px);
-  font-size: calc(var(--insertsFontSize) - 2px);
-  font-size: calc(var(--tableHeadersFontSize) - 2px); */
 }
 
 .pdf-mode #reportToPdf {
@@ -406,7 +399,7 @@ h4 {
 
 /* ===== RESPONSIVE DESIGN ===== */
 /* Mobile responsive design */
-@media (min-width: 320px) and (max-width: 767px) {
+@media (max-width: 767px) {
   main {
     flex-direction: column;
     align-items: center;
@@ -462,10 +455,6 @@ h4 {
 
 /* ===== TABLET RESPONSIVE DESIGN ===== */
 @media (min-width: 768px) and (max-width: 1023px) {
-  /* .dataInput > label {
-    text-align: center;
-  } */
-
   .buttons {
     margin: 10px 5px 5px 5px;
   }
@@ -481,20 +470,5 @@ h4 {
 
   .taskAnalysisDifficultyTextArea {
     max-width: 360px;
-    /* margin: 0 auto; */
   }
-
-  /* #reportPreparedBy {
-    max-width: 400px;
-  } */
 }
-
-/* @media (max-width: 1023px) {
-  body:not(.pdf-mode) main {
-    flex-direction: column;
-  }
-
-  body:not(.pdf-mode) table {
-    width: 90%;
-  }
-} */

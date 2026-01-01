@@ -1,6 +1,60 @@
+let bodyZoom = parseFloat(getComputedStyle(document.body).zoom) || 1;
+const currentZoom = bodyZoom;
+
+function backToNormal() {
+  const spans = document.querySelectorAll(".reportHeadersSpan");
+  const tdButton = document.querySelectorAll(".tdButton");
+
+  spans.forEach((e) => {
+    e.style.textDecoration = "underline";
+  });
+  tdButton.forEach((e) => {
+    e.style.display = "inline-block";
+
+    const thCell = e.closest("th");
+    if (thCell) {
+      thCell.style.display = "inline-block";
+    }
+
+    const tdCell = e.closest("td");
+    if (tdCell) {
+      tdCell.style.display = "table-cell";
+    }
+  });
+
+  document.body.style.zoom = currentZoom;
+}
+
+function prepareForPdf() {
+  const spans = document.querySelectorAll(".reportHeadersSpan");
+  const tdButton = document.querySelectorAll(".tdButton");
+
+  spans.forEach((e) => {
+    e.style.textDecoration = "none";
+  });
+  tdButton.forEach((e) => {
+    e.style.display = "none";
+
+    const thCell = e.closest("th");
+    if (thCell) {
+      thCell.style.display = "none";
+    }
+
+    const tdCell = e.closest("td");
+    if (tdCell) {
+      tdCell.style.display = "none";
+    }
+  });
+
+  bodyZoom = 1;
+  document.body.style.zoom = bodyZoom;
+}
+
 // Download to PDF function
 export async function downloadPDF() {
   const report = document.querySelector("#reportToPdf");
+  prepareForPdf();
+
   const clone = report.cloneNode(true);
 
   clone.classList.add("pdf-mode");
@@ -8,11 +62,6 @@ export async function downloadPDF() {
   clone.style.maxWidth = "200mm";
   clone.style.display = "block";
   clone.style.margin = "0 auto";
-
-  let bodyZoom = parseFloat(getComputedStyle(document.body).zoom) || 1;
-  const currentZoom = bodyZoom;
-  bodyZoom = 1;
-  document.body.style.zoom = bodyZoom;
 
   clone
     .querySelectorAll(
@@ -24,8 +73,6 @@ export async function downloadPDF() {
       div.textContent = e.value;
       e.replaceWith(div);
     });
-
-  document.body.appendChild(clone);
 
   const options = {
     margin: 0,
@@ -48,6 +95,6 @@ export async function downloadPDF() {
   };
 
   await html2pdf().set(options).from(clone).save();
-  clone.remove();
-  document.body.style.zoom = currentZoom;
+
+  backToNormal(clone);
 }

@@ -33,5 +33,6 @@ btnDownload.addEventListener("click", async () => {
     alert("PDF został pomyślnie wygenerowany");
   } catch (error) {
     alert("Błąd podczas generowania PDF:", error);
+    console.log(error);
   }
 });
