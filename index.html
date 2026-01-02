@@ -18,8 +18,17 @@
         <div class="headerContainerRight">
           <nav>
             <ul class="headerContainerRightList">
-              <li><a href="/">Formularz</a></li>
-              <li><a href="/">Podsumowanie</a></li>
+              <!-- <li><a href="/">Formularz</a></li> -->
+              <li>
+                <button
+                  id="registerButton"
+                  class="navButton"
+                  type="button"
+                  data-modal-open
+                >
+                  Zarejestruj się
+                </button>
+              </li>
               <li><a href="/">Kontakt</a></li>
             </ul>
           </nav>
@@ -204,7 +213,8 @@
                 <tbody id="taskDifficultyBody">
                   <tr>
                     <td class="taskDifficultyBodyDesc">
-                      Bardzo Łatwe (powyżej 0,85%)
+                      Bardzo Łatwe<br />
+                      (powyżej 0,85%)
                     </td>
                     <td>
                       <textarea
@@ -214,7 +224,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>Łatwe (powyżej 0,75%)</td>
+                    <td>Łatwe<br />(powyżej 0,75%)</td>
                     <td>
                       <textarea
                         class="taskDifficultyTextArea"
@@ -223,7 +233,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>Średnie (powyżej 0,50%)</td>
+                    <td>Średnie<br />(powyżej 0,50%)</td>
                     <td>
                       <textarea
                         class="taskDifficultyTextArea"
@@ -232,7 +242,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>Trudne (powyżej 0,35%)</td>
+                    <td>Trudne<br />(powyżej 0,35%)</td>
                     <td>
                       <textarea
                         class="taskDifficultyTextArea"
@@ -241,7 +251,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>Bardzo Trudne (0% - 0,34%)</td>
+                    <td>Bardzo Trudne<br />(0% - 0,34%)</td>
                     <td>
                       <textarea
                         class="taskDifficultyTextArea"
@@ -280,6 +290,53 @@
         </div>
       </div>
     </main>
+
+    <!-- First Div is backdrop, block interaction out of the box -->
+    <div class="modalBackdrop modalHidden" data-modal>
+      <!-- Actual modal to register -->
+      <div class="modalRegister">
+        <button type="button" class="modalButtonClose" data-modal-close>
+          X
+        </button>
+        <form class="modalRegisterForm">
+          <div class="modalRegisterFormDiv">
+            <!--  -->
+            <div>
+              <label for="modalRegisterEmail">E-mail: </label>
+              <input id="modalRegisterEmail" type="text" class="modalInput" />
+            </div>
+            <div>
+              <label for="modalRegisterPassword">Hasło: </label>
+              <input
+                id="modalRegisterPassword"
+                type="password"
+                class="modalInput"
+              />
+            </div>
+            <div>
+              <label for="modalRegisterPassword">Powtórz hasło: </label>
+              <input
+                id="modalRegisterPassword"
+                type="password"
+                class="modalInput"
+              />
+            </div>
+            <div>
+              <label class="modalTerms">
+                <input type="checkbox" id="termsCheckbox" required />
+                Akceptuję
+                <a href="./rules/regulamin.html" target="_blank">Regulamin</a> i
+                <a href="./rules/privacy.html" target="_blank"
+                  >Politykę prywatności</a
+                >
+              </label>
+            </div>
+            <button type="submit" class="modalButton">Rejestruj</button>
+            <!--  -->
+          </div>
+        </form>
+      </div>
+    </div>
 
     <script type="module" src="./js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>

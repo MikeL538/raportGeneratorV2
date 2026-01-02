@@ -96,5 +96,5 @@ export async function downloadPDF() {
 
   await html2pdf().set(options).from(clone).save();
 
-  backToNormal(clone);
+  backToNormal();
 }
