@@ -47,6 +47,10 @@ function calcAverageScore(maxPointsValue) {
     0
   )} / ${averageProcent.toFixed(0)}%`;
 
+  if (!average) {
+    averagePointsSummary.textContent = "—";
+  }
+
   return average;
 }
 
@@ -74,6 +78,10 @@ function calcMedianAndModeScore() {
     median = medianArray[Math.floor(medianArray.length / 2)];
     median = parseFloat(median);
     medianPointsSummary.textContent = median.toFixed(0);
+  }
+
+  if (!median) {
+    medianPointsSummary.textContent = "—";
   }
 
   const modeMap = {};
@@ -123,8 +131,11 @@ function setSheetLevelValue(maxPointsTarget) {
     case sheetLevelValue >= 35:
       sheetLevel.textContent = "Trudne";
       break;
-    default:
+    case sheetLevelValue >= 0:
       sheetLevel.textContent = "Bardzo trudne";
+      break;
+    default:
+      sheetLevel.textContent = "—";
       break;
   }
 }

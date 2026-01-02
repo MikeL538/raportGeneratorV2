@@ -31,7 +31,7 @@ dateValue.value = "29.12.2025 - 31.12.2025";
 classValue.value = "4A";
 subjectValue.value = "informatyki";
 levelValue.value = "podstawowy";
-studentsAmountValue.value = 1;
+studentsAmountValue.value = 15;
 maxPointsValue.value = 50;
 
 //====== Setters for table 1 =======
@@ -116,7 +116,8 @@ function studentsTableGenerator() {
 
   // Delete td button for students
   const tdDelete = document.createElement("td");
-  tdDelete.innerHTML = `<button class="tdButton"  data-action="remove">x</button>`;
+  tdDelete.innerHTML = `<button class="tdButton" ><svg width="22" height="22" data-action="remove"><use  href="./imgs/icons.svg#iconDelete" data-action="remove"></use>
+                      </svg></button>`;
   tr.appendChild(tdDelete);
 
   // Numering table
@@ -222,9 +223,11 @@ function calculatePercentage(tdScoredPointsInput, maxPointsTarget) {
 // Delete student with the "x" button from the table (one by one)
 function deleteStudent() {
   tBody.addEventListener("click", (e) => {
+    // console.log("click");
     if (e.target.dataset.action === "remove") {
+      console.log("click1");
       e.target.closest("tr").remove();
-
+      console.log("click2");
       const tdNumeric = document.querySelectorAll(".tdNumeric");
       let i = 1;
       tdNumeric.forEach((e) => {

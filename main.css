@@ -226,8 +226,13 @@ h1 {
 table {
   border-collapse: collapse;
   margin-bottom: 15px;
-  max-width: 475px;
+  max-width: 500px;
+  /* min-width: 490px; */
   width: 100%;
+}
+
+#tableStudentsTable {
+  min-width: 590px;
 }
 
 th,
@@ -238,25 +243,30 @@ td {
 }
 
 th {
-  padding: 2px 4px;
+  background-color: #d9edfb;
+  padding: 0 5px;
 }
 
 #tBody {
+  min-width: 500px;
   width: 100%;
 }
 
 .tdButton {
-  background-color: #d9edfb;
-  padding: 2px;
-  margin: 2px;
+  background-color: #fff;
   border: none;
   cursor: pointer;
-  text-align: center;
-  font-weight: bold;
+  margin: 4px;
 }
 
 .tdButton:hover {
-  background-color: #93a0a9;
+  transform: scale(1.1);
+  stroke: #375a71;
+  fill: #375a71;
+}
+
+.tdButtonAdd {
+  background-color: #d9edfb;
 }
 
 #tBody > tr > td,

@@ -133,10 +133,16 @@
           </div>
           <div>
             <h3>1. Ustalenie wyników egzaminu:</h3>
-            <table>
+            <table id="tableStudentsTable">
               <thead>
                 <tr>
-                  <th><button class="tdButton" data-action="add">+</button></th>
+                  <th>
+                    <button class="tdButtonAdd tdButton" data-action="add">
+                      <svg width="22" height="22">
+                        <use href="./imgs/icons.svg#iconAdd"></use>
+                      </svg>
+                    </button>
+                  </th>
                   <th>Lp.</th>
                   <th>Imię i nazwisko</th>
                   <th>Maks punktów</th>
