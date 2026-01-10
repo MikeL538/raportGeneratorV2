@@ -1,0 +1,40 @@
+@import "./variables";
+
+@media (min-width: 1080px) {
+  .report {
+    display: flex;
+
+    &__section {
+      min-width: 500px;
+
+      &--side {
+        max-width: 320px !important;
+      }
+
+      h1 {
+        margin-top: 25px;
+      }
+    }
+
+    &__layout {
+      display: flex;
+    }
+
+    &__section--side {
+      @include flex-center(column, center, center);
+      margin-right: 25px;
+      min-width: 250px;
+    }
+  }
+
+  .analysis__textarea {
+    max-width: 768px;
+    min-height: 150px;
+    min-width: 380px;
+  }
+
+  .report-author__input {
+    height: 25px;
+    min-width: 320px;
+  }
+}
