@@ -3,6 +3,7 @@ import { downloadPDF } from "./pdf.js";
 import { isLogged } from "./auth.js";
 import { toggleRegisterModal, register } from "./register.js";
 import { toggleLoginModal, login, logOut } from "./login.js";
+import { toggleReportModal, toggleSavedReportModal } from "./saveReport.js";
 // import { toggleRegisterModal } from "./saveReport.js";
 // ====
 
@@ -70,4 +71,32 @@ document.addEventListener("click", (e) => {
   if (e.target.closest("[data-logout]")) {
     logOut();
   }
+  if (e.target.closest("[data-modal-open-saveReport]")) {
+    toggleReportModal();
+  }
+  if (e.target.closest("[data-modal-close-saveReport]")) {
+    toggleReportModal();
+  }
+  if (e.target.closest("[data-modal-open-loadReport]")) {
+    toggleSavedReportModal();
+  }
+  if (e.target.closest("[data-modal-close-loadReport]")) {
+    toggleSavedReportModal();
+  }
+});
+
+// =============
+
+import { saveReport } from "./saveReport.js";
+
+const btnSaveReport = document.querySelector("#btnSaveReport");
+
+btnSaveReport.addEventListener("click", () => {
+  const reportName = prompt("Podaj nazwę raportu:");
+  if (!reportName) return;
+
+  const studentsTableRows = [
+    ...document.querySelectorAll("#tableStudentsData tr"),
+  ];
+  saveReport(reportName, studentsTableRows);
 });

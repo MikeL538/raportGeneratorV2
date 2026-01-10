@@ -8,7 +8,7 @@ function renderNav(isLoggedIn) {
 
   if (isLoggedIn) {
     nav.innerHTML = `
-      <li><button id="savedReports">Zapisane raporty</button></li>
+      <li><button id="savedReports" data-modal-open-loadReport>Zapisane raporty</button></li>
       <li><button id="contact">Kontakt</button></li>
       <li><button class="logOutButton" data-logout>Wyloguj</button></li>
     `;
@@ -41,4 +41,15 @@ export async function isLogged() {
   } = await supabase.auth.getSession();
 
   renderNav(!!session);
+}
+
+// ======
+
+export async function getCurrentUser() {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (error) return null;
+  return user;
 }

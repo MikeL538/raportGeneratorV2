@@ -1,19 +1,46 @@
-export function saveReportModal() {}
+const modal = document.querySelector("[data-modal-saveReport]");
+const modalSaved = document.querySelector("[data-modal-loadReport]");
 
-(() => {
-  const refs = {
-    openModalBtn: document.querySelector("[data-modal-open-saveReport]"),
-    closeModalBtn: document.querySelector("[data-modal-close-saveReport]"),
-    modal: document.querySelector("[data-modal-saveReport]"),
-  };
+export function toggleReportModal() {
+  if (!modal) return;
+  modal.classList.toggle("is-hidden");
+}
 
-  // If not found - ignore, do nothing
-  if (!refs.openModalBtn || !refs.closeModalBtn || !refs.modal) return;
+export function toggleSavedReportModal() {
+  if (!modalSaved) return;
+  modalSaved.classList.toggle("is-hidden");
+}
 
-  refs.openModalBtn.addEventListener("click", toggleModal);
-  refs.closeModalBtn.addEventListener("click", toggleModal);
+// ========
 
-  function toggleModal() {
-    refs.modal.classList.toggle("is-hidden");
+import { supabase } from "./supabaseClient.js";
+import { getCurrentUser } from "./auth.js";
+
+export async function saveReport(reportName, studentsData) {
+  const user = await getCurrentUser();
+  if (!user) {
+    console.log("You must be logged");
+    return;
   }
-})();
+
+  // Konwertujemy dane z tabeli do JSON
+  const studentsJson = studentsData.map((row) => ({
+    name: row.querySelector(".students-table__name").value,
+    maxPoints: Number(
+      row.querySelector(".students-table__max-points").textContent
+    ),
+    points: Number(row.querySelector(".students-table__points-input").value),
+  }));
+
+  const { data, error } = await supabase
+    .from("reports")
+    .insert([{ user_id: user.id, name: reportName, students: studentsJson }]);
+
+  if (error) {
+    console.error(error);
+    alert("Błąd przy zapisywaniu raportu");
+    return;
+  }
+
+  alert("Raport zapisany!");
+}

@@ -119,7 +119,7 @@
         <div class="form__logged">
           <button
             class="btn"
-            id="saveReport"
+            id="btnSaveReport"
             type="button"
             data-modal-open-saveReport
           >
@@ -445,7 +445,44 @@
               <input class="modalInput" type="text" />
             </div>
 
-            <button type="submit" class="modalButton">Zapisz</button>
+            <button type="button" class="modalButton">Zapisz</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Load Report form - First Div is backdrop, block interaction out of the box -->
+    <div class="modalBackdrop is-hidden" data-modal-loadReport>
+      <!-- Actual modal to register -->
+      <div class="modal">
+        <button
+          type="button"
+          class="modalButtonClose"
+          data-modal-close-loadReport
+        >
+          X
+        </button>
+        <form class="modalForm">
+          <div class="modalFormDiv">
+            <div>
+              <label for="modalRegisterEmail">Nazwa raportu</label>
+              <input class="modalInput" type="text" />
+            </div>
+            <div
+              class="modalFormDiv"
+              style="border: 1px solid black; height: 150px; width: 150px"
+            >
+              <ol style="width: 110px">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ol>
+            </div>
+
+            <button type="button" class="modalButton">Zapisz</button>
           </div>
         </form>
       </div>
