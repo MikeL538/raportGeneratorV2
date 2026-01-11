@@ -427,9 +427,9 @@
       </div>
     </div>
 
-    <!-- Save Report form - First Div is backdrop, block interaction out of the box -->
+    <!-- // Save Report form - First Div is backdrop, block interaction out of the box
     <div class="modalBackdrop is-hidden" data-modal-saveReport>
-      <!-- Actual modal to register -->
+      // Actual modal to register
       <div class="modal">
         <button
           type="button"
@@ -449,7 +449,7 @@
           </div>
         </form>
       </div>
-    </div>
+    </div>  -->
 
     <!-- Load Report form - First Div is backdrop, block interaction out of the box -->
     <div class="modalBackdrop is-hidden" data-modal-loadReport>
@@ -468,21 +468,9 @@
               <label for="modalRegisterEmail">Nazwa raportu</label>
               <input class="modalInput" type="text" />
             </div>
-            <div
-              class="modalFormDiv"
-              style="border: 1px solid black; height: 150px; width: 150px"
-            >
-              <ol style="width: 110px">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ol>
+            <div class="modalFormDiv">
+              <ol id="savedReports"></ol>
             </div>
-
-            <button type="button" class="modalButton">Zapisz</button>
           </div>
         </form>
       </div>

@@ -1,15 +1,9 @@
-const modal = document.querySelector("[data-modal-saveReport]");
-const modalSaved = document.querySelector("[data-modal-loadReport]");
+// const modal = document.querySelector("[data-modal-saveReport]");
 
-export function toggleReportModal() {
-  if (!modal) return;
-  modal.classList.toggle("is-hidden");
-}
-
-export function toggleSavedReportModal() {
-  if (!modalSaved) return;
-  modalSaved.classList.toggle("is-hidden");
-}
+// export function toggleReportModal() {
+//   if (!modal) return;
+//   modal.classList.toggle("is-hidden");
+// }
 
 // ========
 

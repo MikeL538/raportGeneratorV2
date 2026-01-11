@@ -3,14 +3,14 @@ import { downloadPDF } from "./pdf.js";
 import { isLogged } from "./auth.js";
 import { toggleRegisterModal, register } from "./register.js";
 import { toggleLoginModal, login, logOut } from "./login.js";
-import { toggleReportModal, toggleSavedReportModal } from "./saveReport.js";
-// import { toggleRegisterModal } from "./saveReport.js";
-// ====
+import { saveReport } from "./saveReport.js";
+import { toggleSavedReportModal, showReports } from "./loadReport.js";
 
 const btnGenerate = document.querySelector("#btnGenerate");
 const btnDownload = document.querySelector("#btnDownload");
 const btnDownloadBottom = document.querySelector("#btnDownloadBottom");
-// const headerContainerRightList = document.querySelector(".header__nav-list");
+const btnSaveReport = document.querySelector("#btnSaveReport");
+const btnLoadReport = document.querySelector("#btnLoad");
 
 // Initial raport generation on page load, listeners for buttons
 document.addEventListener("DOMContentLoaded", () => {
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   login();
   generateRaport();
   initStudentsTableEventsWrapper();
+  showReports();
 });
 
 // Generate raport button
@@ -54,6 +55,17 @@ btnDownloadBottom.addEventListener("click", async () => {
   }
 });
 
+// Report save button
+btnSaveReport.addEventListener("click", () => {
+  const reportName = prompt("Podaj nazwę raportu:");
+  if (!reportName) return;
+
+  const studentsTableRows = [
+    ...document.querySelectorAll("#tableStudentsData tr"),
+  ];
+  saveReport(reportName, studentsTableRows);
+});
+
 // MODALS AND LOGOUTS
 document.addEventListener("click", (e) => {
   if (e.target.closest("[data-modal-open-register]")) {
@@ -83,20 +95,4 @@ document.addEventListener("click", (e) => {
   if (e.target.closest("[data-modal-close-loadReport]")) {
     toggleSavedReportModal();
   }
-});
-
-// =============
-
-import { saveReport } from "./saveReport.js";
-
-const btnSaveReport = document.querySelector("#btnSaveReport");
-
-btnSaveReport.addEventListener("click", () => {
-  const reportName = prompt("Podaj nazwę raportu:");
-  if (!reportName) return;
-
-  const studentsTableRows = [
-    ...document.querySelectorAll("#tableStudentsData tr"),
-  ];
-  saveReport(reportName, studentsTableRows);
 });
