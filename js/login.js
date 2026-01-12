@@ -1,5 +1,6 @@
 import { supabase } from "./supabaseClient.js";
 import { isLogged } from "./auth.js";
+import { showReports } from "./loadReport.js";
 
 const modal = document.querySelector("[data-modal-login]");
 const btnLogin = document.querySelector("#modalBtnLogin");
@@ -31,6 +32,7 @@ export function login() {
 
     await isLogged();
     toggleLoginModal();
+    showReports();
   });
 }
 

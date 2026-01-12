@@ -1,19 +1,22 @@
 import { generateSecondPart } from "./calculations.js";
+import { supabase } from "./supabaseClient.js";
 
 const modalSaved = document.querySelector("[data-modal-loadReport]");
+const savedReports = document.querySelector("#savedReports");
+const tableBody = document.querySelector("#tableStudentsData");
 
 export function toggleSavedReportModal() {
   if (!modalSaved) return;
   modalSaved.classList.toggle("is-hidden");
 }
 
-const savedReports = document.querySelector("#savedReports");
-
+// ===============================================
 // Create list item for saved report
 function createListItem(report) {
   const li = document.createElement("li");
 
   const button = document.createElement("button");
+  button.type = "button";
   button.textContent = report.name;
   button.classList.add("btn");
   button.dataset.reportId = report.id;
@@ -22,48 +25,10 @@ function createListItem(report) {
   return li;
 }
 
-// show saved reports in modal
-export function showReports() {
-  savedReports.innerHTML = "";
-  fetch("./example.json")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data.reports);
-
-      data.reports.forEach((report) => {
-        savedReports.appendChild(createListItem(report));
-      });
-    });
-}
-
-savedReports.addEventListener("click", (e) => {
-  const button = e.target.closest("button[data-report-id]");
-  if (!button) return;
-
-  const reportId = button.dataset.reportId;
-  loadReport(reportId);
-  toggleSavedReportModal();
-});
-
-function loadReport(reportId) {
-  fetch("./example.json")
-    .then((res) => res.json())
-    .then((data) => {
-      const report = data.reports.find((r) => r.id === reportId);
-      if (!report) return;
-
-      renderStudentsTable(report);
-    });
-}
-
-// ============================
-
-const tableBody = document.querySelector("#tableStudentsData");
-
-function renderStudentsTable(report) {
+function renderStudentsTable(studentsArray, maxPoints) {
   tableBody.innerHTML = "";
 
-  report.students.forEach((student, index) => {
+  studentsArray.forEach((student, index) => {
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
@@ -79,33 +44,110 @@ function renderStudentsTable(report) {
         <input
           class="students-table__name"
           type="text"
-          value="${student.full_name}"
+          value="${student.name}"
         />
       </td>
-      <td class="students-table__max-points">${report.meta.max_points}</td>
+      <td class="students-table__max-points">${maxPoints}</td>
       <td>
         <input
           class="students-table__points-input"
           type="number"
           value="${student.points}"
           min="0"
-          max="${report.meta.max_points}"
+          max="${maxPoints}"
         />
       </td>
       <td class="students-table__percentage">
-        ${Math.round((student.points / report.meta.max_points) * 100)}%
+        ${Math.round((student.points / maxPoints) * 100)}%
       </td>
     `;
 
     tableBody.appendChild(tr);
   });
   renumarateStudents();
-  generateSecondPart(report.meta.max_points);
+  generateSecondPart(maxPoints);
 }
 
+// show saved reports in modal
+export async function showReports() {
+  savedReports.innerHTML = "";
+
+  const { data, error } = await supabase
+    .from("reports")
+    .select("id, name")
+    .order("created_at", { ascending: false });
+  // .select("*");
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  data.forEach((report) => {
+    savedReports.appendChild(createListItem(report));
+  });
+}
+
+async function loadReport(reportId) {
+  const { data, error } = await supabase
+    .from("reports")
+    .select("name, students")
+    .eq("id", reportId)
+    .single();
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  // DEBUG: results
+  // console.log("Raw data:", data);
+  // console.log("Students type:", typeof data.students);
+  // console.log("Students value:", data.students);
+
+  // Check if it's already an object or needs parsing
+  let studentsArray;
+  if (typeof data.students === "string") {
+    studentsArray = JSON.parse(data.students);
+  } else if (Array.isArray(data.students)) {
+    studentsArray = data.students;
+  } else {
+    console.error("Error: ", data.students);
+    return;
+  }
+
+  const maxPoints = 50;
+
+  renderStudentsTable(studentsArray, maxPoints);
+  // fetch("./example.json")
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     const report = data.reports.find((r) => r.id === reportId);
+  //     if (!report) return;
+
+  //     renderStudentsTable(report);
+  //   });
+}
+
+// Chosen report load
+savedReports.addEventListener("click", (e) => {
+  const button = e.target.closest("button[data-report-id]");
+  if (!button) return;
+
+  const reportId = button.dataset.reportId;
+  loadReport(reportId);
+  toggleSavedReportModal();
+});
+
+// ============================
+
 //============= RENUMERATE STUDENTS================
+const studentsAmountTargetCount = document.querySelector(
+  "#studentsAmountTargetCount"
+);
+
 function renumarateStudents() {
-  const rows = tableStudentsData.querySelectorAll("tr");
+  const rows = tableBody.querySelectorAll("tr");
 
   rows.forEach((row, i) => {
     row.querySelector(".students-table__number").textContent = i + 1;

@@ -10,7 +10,6 @@ const btnGenerate = document.querySelector("#btnGenerate");
 const btnDownload = document.querySelector("#btnDownload");
 const btnDownloadBottom = document.querySelector("#btnDownloadBottom");
 const btnSaveReport = document.querySelector("#btnSaveReport");
-const btnLoadReport = document.querySelector("#btnLoad");
 
 // Initial raport generation on page load, listeners for buttons
 document.addEventListener("DOMContentLoaded", () => {
@@ -83,16 +82,14 @@ document.addEventListener("click", (e) => {
   if (e.target.closest("[data-logout]")) {
     logOut();
   }
-  if (e.target.closest("[data-modal-open-saveReport]")) {
-    toggleReportModal();
-  }
-  if (e.target.closest("[data-modal-close-saveReport]")) {
-    toggleReportModal();
-  }
   if (e.target.closest("[data-modal-open-loadReport]")) {
     toggleSavedReportModal();
+    showReports();
   }
   if (e.target.closest("[data-modal-close-loadReport]")) {
     toggleSavedReportModal();
   }
+  // if (e.target.hasAttribute("[data-modal-open-load-report]")) {
+  //   showReports();
+  // }
 });
