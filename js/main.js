@@ -5,6 +5,7 @@ import { toggleRegisterModal, register } from "./register.js";
 import { toggleLoginModal, login, logOut } from "./login.js";
 import { saveReport } from "./saveReport.js";
 import { toggleSavedReportModal, showReports } from "./loadReport.js";
+import { toggleContactModal } from "./contact.js";
 
 const btnGenerate = document.querySelector("#btnGenerate");
 const btnDownload = document.querySelector("#btnDownload");
@@ -67,21 +68,25 @@ btnSaveReport.addEventListener("click", () => {
 
 // MODALS AND LOGOUTS
 document.addEventListener("click", (e) => {
+  // REGISTER
   if (e.target.closest("[data-modal-open-register]")) {
     toggleRegisterModal();
   }
   if (e.target.closest("[data-modal-close-register]")) {
     toggleRegisterModal();
   }
+  // LOGIN
   if (e.target.closest("[data-modal-open-login]")) {
     toggleLoginModal();
   }
   if (e.target.closest("[data-modal-close-login]")) {
     toggleLoginModal();
   }
+  // LOGOUT
   if (e.target.closest("[data-logout]")) {
     logOut();
   }
+  // SAVED REPORTS
   if (e.target.closest("[data-modal-open-loadReport]")) {
     toggleSavedReportModal();
     showReports();
@@ -89,7 +94,11 @@ document.addEventListener("click", (e) => {
   if (e.target.closest("[data-modal-close-loadReport]")) {
     toggleSavedReportModal();
   }
-  // if (e.target.hasAttribute("[data-modal-open-load-report]")) {
-  //   showReports();
-  // }
+  // CONTACT
+  if (e.target.closest("[data-modal-open-contact]")) {
+    toggleContactModal();
+  }
+  if (e.target.closest("[data-modal-close-contact]")) {
+    toggleContactModal();
+  }
 });

@@ -1,28 +1,35 @@
 import { supabase } from "./supabaseClient.js";
 
-const modal = document.querySelector("[data-modal-register]");
-const btnRegister = document.querySelector("#modelBtnRegister");
-
 export function toggleRegisterModal() {
+  const modal = document.querySelector("[data-modal-register]");
   if (!modal) return;
   modal.classList.toggle("is-hidden");
 }
 
 export function register() {
+  const btnRegister = document.querySelector("#modelBtnRegister");
   if (!btnRegister) return;
 
-  btnRegister.addEventListener("click", async () => {
+  btnRegister.addEventListener("click", async (e) => {
+    e.preventDefault();
     const email = document.querySelector("#modalRegisterEmail").value;
     const password = document.querySelector("#modalRegisterPassword").value;
     const passRepeat = document.querySelector(
       "#modalRegisterPasswordRepeat"
     ).value;
     const msg = document.querySelector("#modalRegisterMessage");
+    const checkbox = document.querySelector("#termsCheckbox");
 
     msg.textContent = "";
 
     if (password !== passRepeat) {
       msg.textContent = "Hasła są różne";
+      msg.style.color = "red";
+      return;
+    }
+
+    if (!checkbox.checked) {
+      msg.textContent = "Musisz zaakceptować regulamin";
       msg.style.color = "red";
       return;
     }

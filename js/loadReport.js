@@ -1,11 +1,11 @@
 import { generateSecondPart } from "./calculations.js";
 import { supabase } from "./supabaseClient.js";
 
-const modalSaved = document.querySelector("[data-modal-loadReport]");
 const savedReports = document.querySelector("#savedReports");
 const tableBody = document.querySelector("#tableStudentsData");
 
 export function toggleSavedReportModal() {
+  const modalSaved = document.querySelector("[data-modal-loadReport]");
   if (!modalSaved) return;
   modalSaved.classList.toggle("is-hidden");
 }
@@ -100,11 +100,6 @@ async function loadReport(reportId) {
     return;
   }
 
-  // DEBUG: results
-  // console.log("Raw data:", data);
-  // console.log("Students type:", typeof data.students);
-  // console.log("Students value:", data.students);
-
   // Check if it's already an object or needs parsing
   let studentsArray;
   if (typeof data.students === "string") {
@@ -119,14 +114,6 @@ async function loadReport(reportId) {
   const maxPoints = 50;
 
   renderStudentsTable(studentsArray, maxPoints);
-  // fetch("./example.json")
-  //   .then((res) => res.json())
-  //   .then((data) => {
-  //     const report = data.reports.find((r) => r.id === reportId);
-  //     if (!report) return;
-
-  //     renderStudentsTable(report);
-  //   });
 }
 
 // Chosen report load

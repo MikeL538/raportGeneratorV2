@@ -1,12 +1,3 @@
-// const modal = document.querySelector("[data-modal-saveReport]");
-
-// export function toggleReportModal() {
-//   if (!modal) return;
-//   modal.classList.toggle("is-hidden");
-// }
-
-// ========
-
 import { supabase } from "./supabaseClient.js";
 import { getCurrentUser } from "./auth.js";
 
