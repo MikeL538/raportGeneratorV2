@@ -126,7 +126,13 @@ function setMaxPoints() {
 // Generate whole report
 export function generateRaport() {
   const studentsAmountValue = document.querySelector("#studentsAmountValue");
-  studentsAmountValue.value = 15;
+  const tableStudentsData = document.querySelector("#tableStudentsData");
+  console.log(studentsAmountValue.textContent);
+
+  if ((studentsAmountValue.textContent = "")) {
+    studentsAmountValue.value = 3;
+    studentsAmountValue.textContent = "3";
+  }
 
   setPublisher();
   setDate();
@@ -139,7 +145,6 @@ export function generateRaport() {
     studentsAmountValue.value = maxStudentsAmount;
   }
 
-  const tableStudentsData = document.querySelector("#tableStudentsData");
   tableStudentsData.innerHTML = "";
 
   for (let i = 0; i < studentsAmountValue.value; i++) {
