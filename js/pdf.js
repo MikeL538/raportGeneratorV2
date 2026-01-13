@@ -1,9 +1,12 @@
 let bodyZoom = parseFloat(getComputedStyle(document.body).zoom) || 1;
-const currentZoom = bodyZoom;
+let currentZoom = bodyZoom;
 
 function prepareForPdf() {
   const spans = document.querySelectorAll(".report__highlight");
   const tdButton = document.querySelectorAll(".students-table__btn");
+
+  bodyZoom = parseFloat(getComputedStyle(document.body).zoom) || 1;
+  currentZoom = bodyZoom;
 
   // Remove underline in PDF
   spans.forEach((e) => {

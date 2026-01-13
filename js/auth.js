@@ -2,17 +2,17 @@ import { supabase } from "./supabaseClient.js";
 
 function renderNav(isLoggedIn) {
   const nav = document.querySelector(".header__nav-list");
-  const formLeftDivLogged = document.querySelector(".form__logged");
+  const savedReportsButton = document.querySelector(".form__logged");
 
   nav.innerHTML = "";
 
   if (isLoggedIn) {
     nav.innerHTML = `
       <li><button id="savedReports" data-modal-open-loadReport>Zapisane raporty</button></li>
-      <li><button id="contact">Kontakt</button></li>
+      <li><button id="btnContact" data-modal-open-contact>Kontakt</button></li>
       <li><button class="logOutButton" data-logout>Wyloguj</button></li>
     `;
-    formLeftDivLogged.style.display = "flex";
+    savedReportsButton.style.display = "flex";
   } else {
     nav.innerHTML = `
       <li>
@@ -26,12 +26,12 @@ function renderNav(isLoggedIn) {
         </button>
       </li>
       <li>
-        <button class="header__nav-button" type="button">
+        <button id="btnContact" class="header__nav-button" type="button" data-modal-open-contact>
           Kontakt
         </button>
       </li>
     `;
-    formLeftDivLogged.style.display = "none";
+    savedReportsButton.style.display = "none";
   }
 }
 
@@ -42,8 +42,6 @@ export async function isLogged() {
 
   renderNav(!!session);
 }
-
-// ======
 
 export async function getCurrentUser() {
   const {

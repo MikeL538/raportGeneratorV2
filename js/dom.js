@@ -5,38 +5,19 @@ import {
 
 // ADD STUDENT BUTTON
 const thAddStudentBtn = document.querySelector(".students-table__btn--add");
-
-// Input elements for first part report details
 export const publisherValue = document.querySelector("#publisherValue");
-const publisherValueInput = document.querySelector("#publisherValueInput");
-const dateValue = document.querySelector("#dateValue");
-const classValue = document.querySelector("#classValue");
-const levelValue = document.querySelector("#levelValue");
-const subjectValue = document.querySelector("#subjectValue");
-const studentsAmountValue = document.querySelector("#studentsAmountValue");
+publisherValue.value = "Operon";
 const maxStudentsAmount = 150;
 
-// Target elements for first part report details
-const publisherTarget = document.querySelector("#publisherTarget");
-const dateTarget = document.querySelector("#dateTarget");
-const classTarget = document.querySelector("#classTarget");
-const levelTarget = document.querySelector("#levelTarget");
-const subjectTarget = document.querySelector("#subjectTarget");
-let maxPointsTarget = 50;
-
-// Setting start values on load up
-publisherValue.value = "Operon";
-dateValue.value = "29.12.2025 - 31.12.2025";
-classValue.value = "4A";
-subjectValue.value = "informatyki";
-levelValue.value = "rozszerzony";
-studentsAmountValue.value = 15;
 maxPointsValue.value = 50;
 
 //====== Setters for table 1 =======
 
 // Publisher setter
 function setPublisher() {
+  const publisherValueInput = document.querySelector("#publisherValueInput");
+  const publisherTarget = document.querySelector("#publisherTarget");
+
   publisherValue.addEventListener("change", () => {
     if (publisherValue.value === "Inne, wprowadź") {
       publisherValueInput.style.display = "block";
@@ -52,6 +33,8 @@ function setPublisher() {
 
 // Date range picker
 function setDate() {
+  const dateTarget = document.querySelector("#dateTarget");
+
   $('input[name="daterange"]').daterangepicker(
     {
       locale: {
@@ -92,6 +75,10 @@ function setDate() {
 
 // Class setter
 function setClass() {
+  const classValue = document.querySelector("#classValue");
+  const classTarget = document.querySelector("#classTarget");
+
+  classValue.value = "4A";
   classValue.addEventListener("input", () => {
     classTarget.textContent = classValue.value;
   });
@@ -99,6 +86,10 @@ function setClass() {
 
 // Subject setter
 function setSubject() {
+  const subjectValue = document.querySelector("#subjectValue");
+  const subjectTarget = document.querySelector("#subjectTarget");
+
+  subjectValue.value = "informatyki";
   subjectValue.addEventListener("input", () => {
     subjectTarget.textContent = subjectValue.value;
   });
@@ -106,6 +97,10 @@ function setSubject() {
 
 // Level setter
 function setLevel() {
+  const levelValue = document.querySelector("#levelValue");
+  const levelTarget = document.querySelector("#levelTarget");
+
+  levelValue.value = "rozszerzony";
   levelValue.addEventListener("change", () => {
     levelTarget.textContent = levelValue.value;
   });
@@ -113,6 +108,8 @@ function setLevel() {
 
 // Max points setter
 function setMaxPoints() {
+  let maxPointsTarget = 50;
+
   maxPointsValue.addEventListener("input", () => {
     maxPointsTarget = maxPointsValue.value;
 
@@ -128,6 +125,15 @@ function setMaxPoints() {
 
 // Generate whole report
 export function generateRaport() {
+  const studentsAmountValue = document.querySelector("#studentsAmountValue");
+  const tableStudentsData = document.querySelector("#tableStudentsData");
+  console.log(studentsAmountValue.textContent);
+
+  if ((studentsAmountValue.textContent = "")) {
+    studentsAmountValue.value = 3;
+    studentsAmountValue.textContent = "3";
+  }
+
   setPublisher();
   setDate();
   setClass();
@@ -139,7 +145,6 @@ export function generateRaport() {
     studentsAmountValue.value = maxStudentsAmount;
   }
 
-  const tableStudentsData = document.querySelector("#tableStudentsData");
   tableStudentsData.innerHTML = "";
 
   for (let i = 0; i < studentsAmountValue.value; i++) {

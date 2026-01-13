@@ -64,7 +64,7 @@ function calculatePercentage(input) {
 
     tdPercentage.textContent = `${((value / max) * 100 || 0).toFixed(0)}%`;
 
-    generateSecondPart(max);
+    // generateSecondPart(max);
   });
 }
 

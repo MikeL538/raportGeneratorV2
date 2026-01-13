@@ -2,18 +2,18 @@ import { supabase } from "./supabaseClient.js";
 import { isLogged } from "./auth.js";
 import { showReports } from "./loadReport.js";
 
-const modal = document.querySelector("[data-modal-login]");
-const btnLogin = document.querySelector("#modalBtnLogin");
-
 export function toggleLoginModal() {
+  const modal = document.querySelector("[data-modal-login]");
   if (!modal) return;
   modal.classList.toggle("is-hidden");
 }
 
-export function login() {
+export function login(e) {
+  const btnLogin = document.querySelector("#modalBtnLogin");
   if (!btnLogin) return;
 
-  btnLogin.addEventListener("click", async () => {
+  btnLogin.addEventListener("click", async (e) => {
+    e.preventDefault();
     const email = document.querySelector("#modalLoginEmail").value;
     const password = document.querySelector("#modalLoginPassword").value;
     const msg = document.querySelector("#modalLoginMessage");

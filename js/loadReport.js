@@ -1,17 +1,35 @@
 import { generateSecondPart } from "./calculations.js";
 import { supabase } from "./supabaseClient.js";
 
-const modalSaved = document.querySelector("[data-modal-loadReport]");
 const savedReports = document.querySelector("#savedReports");
 const tableBody = document.querySelector("#tableStudentsData");
 
 export function toggleSavedReportModal() {
+  const modalSaved = document.querySelector("[data-modal-loadReport]");
   if (!modalSaved) return;
   modalSaved.classList.toggle("is-hidden");
 }
 
-// ===============================================
-// Create list item for saved report
+// show saved reports in modal
+export async function showReports() {
+  savedReports.innerHTML = "";
+
+  const { data, error } = await supabase
+    .from("reports")
+    .select("id, name")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  data.forEach((report) => {
+    savedReports.appendChild(createListItem(report));
+  });
+}
+
+// Create buttons for reports with name
 function createListItem(report) {
   const li = document.createElement("li");
 
@@ -25,7 +43,7 @@ function createListItem(report) {
   return li;
 }
 
-function renderStudentsTable(studentsArray, maxPoints) {
+function renderStudentsTable(studentsArray, maxPointsData) {
   tableBody.innerHTML = "";
 
   studentsArray.forEach((student, index) => {
@@ -47,51 +65,54 @@ function renderStudentsTable(studentsArray, maxPoints) {
           value="${student.name}"
         />
       </td>
-      <td class="students-table__max-points">${maxPoints}</td>
+      <td class="students-table__max-points">${maxPointsData}</td>
       <td>
         <input
           class="students-table__points-input"
           type="number"
           value="${student.points}"
           min="0"
-          max="${maxPoints}"
+          max="${maxPointsData}"
         />
       </td>
       <td class="students-table__percentage">
-        ${Math.round((student.points / maxPoints) * 100)}%
+        ${Math.round((student.points / maxPointsData) * 100)}%
       </td>
     `;
 
     tableBody.appendChild(tr);
   });
+  tableInputListeners(maxPointsData);
+
   renumarateStudents();
-  generateSecondPart(maxPoints);
+  generateSecondPart(maxPointsData);
 }
 
-// show saved reports in modal
-export async function showReports() {
-  savedReports.innerHTML = "";
+function tableInputListeners(maxPointsData) {
+  const pointsInputs = tableBody.querySelectorAll(
+    ".students-table__points-input"
+  );
 
-  const { data, error } = await supabase
-    .from("reports")
-    .select("id, name")
-    .order("created_at", { ascending: false });
-  // .select("*");
+  pointsInputs.forEach((input) => {
+    input.addEventListener("input", () => {
+      const value = Math.min(Number(input.value) || 0, maxPointsData);
+      input.value = value;
 
-  if (error) {
-    console.error(error);
-    return;
-  }
+      const row = input.closest("tr");
+      const tdPercentage = row.querySelector(".students-table__percentage");
+      tdPercentage.textContent = `${(
+        (value / maxPointsData) * 100 || 0
+      ).toFixed(0)}%`;
 
-  data.forEach((report) => {
-    savedReports.appendChild(createListItem(report));
+      generateSecondPart(maxPointsData);
+    });
   });
 }
 
 async function loadReport(reportId) {
   const { data, error } = await supabase
     .from("reports")
-    .select("name, students")
+    .select("name, max_points, students")
     .eq("id", reportId)
     .single();
 
@@ -99,11 +120,6 @@ async function loadReport(reportId) {
     console.error(error);
     return;
   }
-
-  // DEBUG: results
-  // console.log("Raw data:", data);
-  // console.log("Students type:", typeof data.students);
-  // console.log("Students value:", data.students);
 
   // Check if it's already an object or needs parsing
   let studentsArray;
@@ -116,17 +132,9 @@ async function loadReport(reportId) {
     return;
   }
 
-  const maxPoints = 50;
+  const maxPointsData = data.max_points;
 
-  renderStudentsTable(studentsArray, maxPoints);
-  // fetch("./example.json")
-  //   .then((res) => res.json())
-  //   .then((data) => {
-  //     const report = data.reports.find((r) => r.id === reportId);
-  //     if (!report) return;
-
-  //     renderStudentsTable(report);
-  //   });
+  renderStudentsTable(studentsArray, maxPointsData);
 }
 
 // Chosen report load
@@ -138,8 +146,6 @@ savedReports.addEventListener("click", (e) => {
   loadReport(reportId);
   toggleSavedReportModal();
 });
-
-// ============================
 
 //============= RENUMERATE STUDENTS================
 const studentsAmountTargetCount = document.querySelector(

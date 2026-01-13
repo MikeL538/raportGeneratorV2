@@ -1,13 +1,6 @@
-// Target elements for second part report details
-const maxPointsSummary = document.querySelector("#maxPointsSummary");
-const minPointsSummary = document.querySelector("#minPointsSummary");
-const averagePointsSummary = document.querySelector("#averagePointsSummary");
-const medianPointsSummary = document.querySelector("#medianPointsSummary");
-const modePointsSummary = document.querySelector("#modePointsSummary");
-const sheetLevel = document.querySelector("#sheetLevel");
-
 // Calculate highest score
 function calcHighestScore() {
+  const maxPointsSummary = document.querySelector("#maxPointsSummary");
   let highestPoints = 0;
   const scoredPointsInput = document.querySelectorAll(
     ".students-table__points-input"
@@ -27,6 +20,7 @@ function calcHighestScore() {
 
 // Calculate lowest score
 function calcLowestScore(maxPointsValue) {
+  const minPointsSummary = document.querySelector("#minPointsSummary");
   let lowestScore = maxPointsValue;
   const scoredPointsInput = document.querySelectorAll(
     ".students-table__points-input"
@@ -46,6 +40,7 @@ function calcLowestScore(maxPointsValue) {
 
 // Calculate average
 function calcAverageScore(maxPointsValue) {
+  const averagePointsSummary = document.querySelector("#averagePointsSummary");
   let average = 0;
 
   const scoredPointsInput = document.querySelectorAll(
@@ -77,6 +72,8 @@ function calcAverageScore(maxPointsValue) {
 
 // Calculate median and mode
 function calcMedianAndModeScore() {
+  const medianPointsSummary = document.querySelector("#medianPointsSummary");
+  const modePointsSummary = document.querySelector("#modePointsSummary");
   const scoredPointsInput = document.querySelectorAll(
     ".students-table__points-input"
   );
@@ -147,6 +144,7 @@ function calcMedianAndModeScore() {
 
 // Set sheet level
 function setSheetLevelValue(max) {
+  const sheetLevel = document.querySelector("#sheetLevel");
   const average = calcAverageScore(max);
 
   const sheetLevelValue = (average / max) * 100;
