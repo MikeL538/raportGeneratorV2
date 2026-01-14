@@ -129,9 +129,8 @@ export function generateRaport() {
   const tableStudentsData = document.querySelector("#tableStudentsData");
   console.log(studentsAmountValue.textContent);
 
-  if ((studentsAmountValue.textContent = "")) {
+  if (studentsAmountValue.textContent === "") {
     studentsAmountValue.value = 3;
-    studentsAmountValue.textContent = "3";
   }
 
   setPublisher();
