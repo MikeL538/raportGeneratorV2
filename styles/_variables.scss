@@ -1,0 +1,45 @@
+// z-indexes
+// 11 - Modals
+
+// Font Sizes Mobile
+$headersFontSize: 14px;
+$tableHeadersFontSize: 12px;
+$modalsFontSize: 15px;
+$navFontSize: 20px;
+
+// Font size for buttons, normal table and instert
+$regularFontSize: 11px;
+
+// Colours
+$backgroundColor: #e4e2e2;
+$formsBackgroundColor: #fff;
+$headerBackgroundColor: #034dad;
+$headerBackgroundColorGradient: linear-gradient(
+  90deg,
+  rgba(3, 77, 173, 1) 0%,
+  rgba(0, 93, 214, 1) 50%,
+  rgba(0, 111, 255, 1) 100%
+);
+$inputsBackroundColor: hsl(0, 0%, 97%);
+$buttonsBackgroundColor: #2b49a3;
+$buttonsBorderColor: rgb(162, 192, 252);
+$thBackgroundColor: #d9edfb;
+$modalBackdropColor: rgba(0, 0, 0, 0.7);
+$buttonsColor: #fff;
+
+// Flex center -- el { @include flex-center(row, center, center); }
+@mixin flex-center($dir: row, $justify: center, $align: center) {
+  align-items: $align;
+  display: flex;
+  flex-direction: $dir;
+  justify-content: $justify;
+}
+
+// box-shadow
+$shadow: 1px 1px 1px rgba(66, 68, 90, 1);
+
+@mixin box-shadow($value) {
+  -moz-box-shadow: $value;
+  -webkit-box-shadow: $value;
+  box-shadow: $value;
+}

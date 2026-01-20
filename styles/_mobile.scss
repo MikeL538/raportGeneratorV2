@@ -1,0 +1,385 @@
+@import "./variables";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: $backgroundColor;
+}
+
+.tableTitle {
+  margin-top: 10px;
+  text-align: center;
+}
+
+// ===================
+// ====== HEADER =====
+// ===================
+.header {
+  @include flex-center(row, center, center);
+  background: $headerBackgroundColor;
+  background: $headerBackgroundColorGradient;
+  width: 100%;
+
+  &__container {
+    @include flex-center(row, space-between, center);
+    margin: 10px auto;
+    max-width: 1440px;
+    width: 100%;
+  }
+
+  &__logo {
+    height: 34px;
+    margin-left: 10px;
+    margin-top: 2px;
+    width: 100px;
+  }
+
+  &__nav-list {
+    @include flex-center(row, space-between, center);
+    list-style: none;
+    margin-right: 5px;
+
+    > li > button {
+      background: none;
+      border-radius: 8px;
+      border: 2px solid $backgroundColor;
+      color: #fff;
+      margin-right: 5px;
+      padding: 3px;
+      text-decoration: none;
+
+      &:hover {
+        border: 2px solid #000;
+        color: #000;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+// #savedReports {
+//   max-width: 60px;
+// }
+
+// ==========================
+// ====== FILL IN FORM ======
+// ==========================
+.main {
+  display: flex;
+  flex-direction: column;
+  margin: 10px auto;
+  max-width: 1440px;
+  padding: 0 10px;
+  width: 100%;
+}
+
+.form {
+  @include box-shadow($shadow);
+  background-color: $formsBackgroundColor;
+  border-radius: 6px;
+  border: none;
+  padding: 15px 10px;
+
+  &__group {
+    @include flex-center(column, center, center);
+    font-size: $headersFontSize;
+    margin-bottom: 15px;
+    text-align: center;
+
+    &:last-of-type {
+      margin-bottom: 5px;
+    }
+
+    > h1 {
+      max-width: 280px;
+    }
+
+    > .form__input,
+    > .form__select {
+      @include box-shadow($shadow);
+      background-color: hsl(0, 0%, 97%);
+      border-radius: 5px;
+      border: none;
+      height: 25px;
+      margin-top: 3px;
+      outline: lightgray;
+      padding: 2px;
+      text-align: center;
+      width: 250px;
+    }
+
+    > .form__label {
+      font-weight: bold;
+    }
+  }
+
+  &__input--hidden {
+    display: none;
+  }
+
+  &__buttons {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  &__logged {
+    display: none;
+    justify-content: center;
+  }
+}
+
+/* BUTTON BLOCK */
+.btn {
+  background-color: $buttonsBackgroundColor;
+  border-radius: 24px;
+  border: 2px solid $buttonsBorderColor;
+  color: $buttonsColor;
+  cursor: pointer;
+  font-size: $regularFontSize;
+  font-weight: bold;
+  height: 44px;
+  width: 125px;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.btn-del {
+  background-color: rgb(231, 96, 96);
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 5px;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+// =======================
+// ====== Report =========
+// =======================
+
+// ====== Headers like Publisher, date etc. =========
+.report {
+  @include box-shadow($shadow);
+  background-color: $formsBackgroundColor;
+  border-radius: 6px;
+  border: none;
+  font-size: $tableHeadersFontSize;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  padding: 5px 0;
+
+  &__section {
+    margin-bottom: 15px;
+    padding: 3px;
+    page-break-after: always;
+    text-align: center;
+  }
+
+  &__header {
+    font-size: $headersFontSize;
+    text-align: center;
+
+    h1,
+    h2,
+    h3 {
+      margin-bottom: 5px;
+    }
+  }
+
+  &__highlight {
+    text-decoration: underline;
+  }
+}
+
+// ====== Table with students name, points etc. =========
+
+.report {
+  &__table-wrapper {
+    max-height: 40vh;
+    overflow: auto;
+    position: relative;
+  }
+}
+
+.students-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  position: relative;
+  table-layout: fixed;
+
+  thead {
+    tr {
+      display: table-row;
+
+      th {
+        border: 1px solid black;
+        padding: 0 5px;
+      }
+    }
+  }
+
+  &__row {
+    background-color: $thBackgroundColor;
+    border: 1px solid #000;
+    height: 30px;
+    width: 100%;
+  }
+
+  &__header {
+    padding: 0;
+  }
+
+  tbody {
+    border: 1px solid black;
+
+    tr td {
+      border-bottom: 1px solid black;
+      border-collapse: collapse;
+    }
+  }
+
+  &__btn {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+
+    svg {
+      height: 22px;
+      width: 22px;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    &--add {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $thBackgroundColor;
+    }
+  }
+
+  &__points-input {
+    max-width: 50px;
+    text-align: center;
+  }
+
+  &__name {
+    max-width: 120px;
+  }
+}
+
+// ====== Table with students-amount, average etc. (calculations) =========
+
+.indicators {
+  @include flex-center(column, center, center);
+  margin: 5px;
+
+  &__table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 5px;
+
+    td {
+      border-collapse: collapse;
+      border: 1px solid #000;
+      padding: 4px;
+      text-align: center;
+
+      &:first-child {
+        background-color: $thBackgroundColor;
+      }
+    }
+  }
+}
+
+// ====== Table for tasks difficulty input =========
+
+.tasks {
+  @include flex-center(column, center, center);
+  margin: 5px;
+
+  &__table {
+    border-collapse: collapse;
+
+    th {
+      background-color: $thBackgroundColor;
+    }
+
+    th,
+    td {
+      border: 1px solid #000;
+      padding: 6px 8px;
+      text-align: center;
+    }
+  }
+
+  &__difficulty-desc {
+    font-weight: bold;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 4px;
+    text-align: center;
+  }
+}
+// ====== Table for tasks analysis =========
+
+.analysis {
+  @include flex-center(column, center, center);
+
+  &__textarea {
+    margin-top: 5px;
+    max-width: 280px;
+    min-width: 280px;
+    min-height: 100px;
+  }
+}
+
+// ====== Raport By ======
+
+.report-author {
+  @include flex-center(column, center, center);
+  margin: 20px 0;
+
+  &__input {
+    height: 20px;
+    margin-top: 5px;
+    min-width: 280px;
+    text-align: center;
+  }
+}
+
+// ========================
+
+.report {
+  &__download {
+    @include flex-center(column, center, center);
+    margin-bottom: 20px;
+  }
+}
+
+// ======= Load Reports list =======
+
+#savedReportsList {
+  max-height: 300px;
+  width: 200px;
+  overflow: auto;
+}
+
+.report-loaded {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}

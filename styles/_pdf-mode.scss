@@ -1,0 +1,80 @@
+@import "./variables";
+
+.pdf-mode {
+  width: 210mm !important;
+  padding: 10mm !important;
+  margin: 0 !important;
+  background: #fff !important;
+
+  * {
+    box-sizing: border-box !important;
+    padding: 3px !important;
+  }
+
+  /* główny kontener raportu */
+  .report {
+    margin: 0 !important;
+    // display: flex !important;
+  }
+
+  table {
+    width: 100% !important;
+  }
+
+  table,
+  textarea,
+  div {
+    min-width: none !important;
+    max-width: 100% !important;
+  }
+
+  /* układ dwóch kolumn */
+  .report__layout {
+    justify-content: center !important;
+    display: flex !important;
+  }
+
+  /* wrapper tabeli studentów */
+  .report__table-wrapper {
+    max-height: none !important;
+  }
+
+  /* tabela studentów */
+  #tableStudentsData {
+    > tr > td {
+      max-height: 15px !important;
+    }
+  }
+
+  /* sekcja raportu */
+  .report__section {
+    min-width: 500px !important;
+
+    &--side {
+      max-width: 320px !important;
+    }
+  }
+
+  /* analiza */
+  .analysis__textarea {
+    min-height: 300px !important;
+    min-width: 380px !important;
+  }
+
+  /* autor raportu */
+  .report-author__input {
+    height: 25px !important;
+    min-width: 320px !important;
+  }
+
+  /* boczna kolumna */
+  .report__side {
+    @include flex-center(column, center, center);
+    min-width: 250px !important;
+  }
+
+  /* dolny przycisk pobierania */
+  .report__download {
+    display: none !important;
+  }
+}

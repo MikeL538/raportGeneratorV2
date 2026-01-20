@@ -1,0 +1,60 @@
+@import "./variables";
+
+@media (min-width: 768px) {
+  .main {
+    flex-direction: row;
+  }
+
+  /* FORM */
+  .form {
+    padding: 15px;
+    height: 100%;
+    margin-right: 15px;
+  }
+
+  /* REPORT */
+  .report {
+    @include flex-center(column, center, center);
+    height: 100%;
+    margin: 0;
+    min-width: 450px;
+    padding: 15px 5px;
+    width: 100%;
+
+    &__section {
+      max-width: 100%;
+      padding: 0;
+    }
+
+    &__table-wrapper {
+      min-height: 280px;
+    }
+
+    &__download {
+      display: none;
+    }
+
+    &__section--side {
+      @include flex-center(row, center, center);
+    }
+  }
+
+  /* STUDENTS TABLE */
+  .students-table {
+    max-width: 550px;
+
+    &__name {
+      max-width: none;
+    }
+  }
+
+  /* INDICATORS */
+  .indicators {
+    margin-right: 8px;
+  }
+
+  /* ANALYSIS */
+  .analysis__textarea {
+    min-width: 420px;
+  }
+}

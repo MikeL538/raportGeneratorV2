@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Raport Generator V2</title>
+    <link rel="icon" href="./imgs/Logo.png" />
+    <link rel="stylesheet" href="style.min.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header__container">
+        <div>
+          <svg class="header__logo">
+            <use href="./imgs/icons.svg#iconLogo"></use>
+          </svg>
+        </div>
+
+        <nav>
+          <ul class="header__nav-list">
+            <li>
+              <button class="logInButton" type="button" data-modal-open-login>
+                Zaloguj
+              </button>
+            </li>
+            <li>
+              <button
+                id="registerButton"
+                type="button"
+                data-modal-open-register
+              >
+                Rejestracja
+              </button>
+            </li>
+            <li>
+              <button id="btnContact" type="button" data-modal-open-contact>
+                Kontakt
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- RRPORT DATA FORM -->
+      <form class="form">
+        <div class="form__group">
+          <h1 class="form__title">Wprowadź dane do raportu</h1>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="publisherValue">Wydawnictwo</label>
+
+          <select id="publisherValue" class="form__select">
+            <option>Operon</option>
+            <option>CKE</option>
+            <option>Nowa Era</option>
+            <option>Inne, wprowadź</option>
+          </select>
+
+          <input
+            type="text"
+            placeholder="Wydawnictwo"
+            id="publisherValueInput"
+            class="form__input form__input--hidden"
+          />
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="dateValue">Data</label>
+          <input
+            type="text"
+            name="daterange"
+            value="29.12.2025 - 31.12.2025"
+            id="dateValue"
+            class="form__input"
+          />
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="classValue">Klasa</label>
+          <input type="text" id="classValue" class="form__input" />
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="subjectValue">Matura z</label>
+          <input type="text" id="subjectValue" class="form__input" />
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="levelValue">Poziom</label>
+          <select id="levelValue" class="form__select">
+            <option>podstawowy</option>
+            <option>rozszerzony</option>
+          </select>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="studentsAmountValue"
+            >Liczba zdających</label
+          >
+          <input type="number" id="studentsAmountValue" class="form__input" />
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="maxPointsValue">Max punktów</label>
+          <input type="number" id="maxPointsValue" class="form__input" />
+        </div>
+
+        <div class="form__group form__buttons">
+          <button class="btn" id="btnGenerate" type="button">
+            Generuj raport<br />od nowa
+          </button>
+
+          <button class="btn" id="btnDownload" type="button">Pobierz</button>
+        </div>
+
+        <div class="form__logged">
+          <button
+            class="btn"
+            id="btnSaveReport"
+            type="button"
+            data-modal-open-saveReport
+          >
+            Save report
+          </button>
+        </div>
+      </form>
+
+      <!-- REPORT -->
+      <div class="report" id="reportToPdf">
+        <!-- REPORT HEADERS AND STUDENTS TABLE -->
+        <section class="report__section">
+          <div class="report__header">
+            <h1>
+              Matura próbna wyd.
+              <span id="publisherTarget" class="report__highlight">Operon</span>
+              <br />
+              <span id="dateTarget" class="report__highlight"
+                >29.12.2025 - 31.12.2025</span
+              >
+            </h1>
+
+            <h2>
+              Klasa:
+              <span id="classTarget" class="report__highlight">4A</span>
+            </h2>
+
+            <h2>
+              Wyniki próbnego egzaminu maturalnego z
+              <span id="subjectTarget" class="report__highlight"
+                >informatyki</span
+              >
+            </h2>
+
+            <h2>
+              Poziom
+              <span id="levelTarget" class="report__highlight"
+                >rozszerzony</span
+              >
+            </h2>
+          </div>
+
+          <!--  STUDENTS TABLE -->
+          <div class="report__table-wrapper">
+            <h3 class="report__title">1. Ustalenie wyników egzaminu:</h3>
+
+            <table class="students-table">
+              <thead>
+                <tr class="students-table__row">
+                  <th class="students-table__header">
+                    <button
+                      class="students-table__btn students-table__btn--add"
+                      aria-label="Dodaj studenta"
+                      data-action="add"
+                    >
+                      <svg>
+                        <use href="./imgs/icons.svg#iconAdd"></use>
+                      </svg>
+                    </button>
+                  </th>
+                  <th>Lp.</th>
+                  <th>Imię i nazwisko</th>
+                  <th>Maks punktów</th>
+                  <th>Uzyskane punkty</th>
+                  <th>Sprawność testowa</th>
+                </tr>
+              </thead>
+
+              <tbody id="tableStudentsData"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- REPORT INDICATORS (CALCS) + DIFFICULTY TABLE + ANALYSIS + AUTHOR DIV -->
+        <div class="report__layout">
+          <!-- REPORT INDICATORS (CALCS) + DIFFICULTY TABLE -->
+          <div class="report__side">
+            <!-- REPORT INDICATORS (CALCS) -->
+            <div class="indicators">
+              <h3 class="report__title">
+                2. Ustalenie wskaźników ilościowych:
+              </h3>
+
+              <table class="indicators__table">
+                <tbody>
+                  <tr>
+                    <td>Liczba zdających</td>
+                    <td id="studentsAmountTargetCount">0</td>
+                  </tr>
+                  <tr>
+                    <td>Minimalna liczba uzyskanych punktów</td>
+                    <td id="minPointsSummary">0</td>
+                  </tr>
+                  <tr>
+                    <td>Maksymalna liczba uzyskanych punktów</td>
+                    <td id="maxPointsSummary">0</td>
+                  </tr>
+                  <tr>
+                    <td>Średnia liczba uzyskanych punktów</td>
+                    <td id="averagePointsSummary">0 / 0%</td>
+                  </tr>
+                  <tr>
+                    <td>Mediana liczby uzyskanych punktów</td>
+                    <td id="medianPointsSummary">0</td>
+                  </tr>
+                  <tr>
+                    <td>Modalna liczby uzyskanych punktów</td>
+                    <td id="modePointsSummary">0</td>
+                  </tr>
+                  <tr>
+                    <td>Łatwość arkusza</td>
+                    <td id="sheetLevel">0</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- REPORT DIFFICULTY TABLE -->
+            <div class="tasks">
+              <h3 class="report__title">3. Trudność poszczególnych zadań:</h3>
+
+              <table class="tasks__table">
+                <thead>
+                  <tr>
+                    <th>Poziom trudności zadania</th>
+                    <th>Numer zadania</th>
+                  </tr>
+                </thead>
+
+                <tbody id="taskDifficultyBody">
+                  <tr>
+                    <td class="tasks__difficulty-desc">
+                      Bardzo łatwe<br />(powyżej 0,85%)
+                    </td>
+                    <td><input id="taskVeryEasy" class="tasks__input" /></td>
+                  </tr>
+
+                  <tr>
+                    <td class="tasks__difficulty-desc">
+                      Łatwe<br />(powyżej 0,75%)
+                    </td>
+                    <td><input id="taskEasy" class="tasks__input" /></td>
+                  </tr>
+
+                  <tr>
+                    <td class="tasks__difficulty-desc">
+                      Średnie<br />(powyżej 0,50%)
+                    </td>
+                    <td><input id="taskMedium" class="tasks__input" /></td>
+                  </tr>
+
+                  <tr>
+                    <td class="tasks__difficulty-desc">
+                      Trudne<br />(powyżej 0,35%)
+                    </td>
+                    <td><input id="taskHard" class="tasks__input" /></td>
+                  </tr>
+
+                  <tr>
+                    <td class="tasks__difficulty-desc">
+                      Bardzo trudne<br />(0% - 0,34%)
+                    </td>
+                    <td><input id="taskVeryHard" class="tasks__input" /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- REPORT ANALYSIS + AUTHOR DIV -->
+          <div class="report__side">
+            <!-- REPORT ANALYSIS -->
+            <div class="analysis">
+              <h3 class="report__title">
+                4A. Analiza zadań bardzo łatwych i łatwych:
+              </h3>
+              <textarea id="analysisEasy" class="analysis__textarea"></textarea>
+
+              <h3 class="report__title">
+                4B. Analiza zadań bardzo trudnych i trudnych:
+              </h3>
+              <textarea id="analysisHard" class="analysis__textarea"></textarea>
+            </div>
+
+            <!-- REPORT AUTHOR DIV -->
+            <div class="report-author">
+              <h4 class="report__title">Raport przygotowany przez:</h4>
+              <input
+                type="text"
+                id="reportPreparedBy"
+                class="report-author__input"
+                placeholder="Imię i nazwisko autora raportu"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- MOBILE/TABLET BUTTON BOTTOM DOWNLOAD -->
+        <div class="report__download">
+          <button class="btn" id="btnDownloadBottom">Pobierz</button>
+        </div>
+      </div>
+    </main>
+
+    <footer></footer>
+
+    <!-- REGISTER - First Div is backdrop, block interaction out of the box -->
+    <div class="modalBackdrop is-hidden" data-modal-register>
+      <!-- Actual modal -->
+      <div class="modal">
+        <button
+          type="button"
+          class="modalButtonClose"
+          data-modal-close-register
+        >
+          X
+        </button>
+        <form class="modalForm">
+          <div class="modalFormDiv">
+            <!--  -->
+            <div>
+              <label for="modalRegisterEmail">E-mail: </label>
+              <input
+                id="modalRegisterEmail"
+                class="modalInput"
+                placeholder="email@gmail.com"
+                type="text"
+                required
+              />
+            </div>
+            <div>
+              <label for="modalRegisterPassword">Hasło: </label>
+              <input
+                id="modalRegisterPassword"
+                class="modalInput"
+                type="password"
+                placeholder="hasło"
+                required
+              />
+            </div>
+            <div>
+              <label for="modalRegisterPassword">Powtórz hasło: </label>
+              <input
+                id="modalRegisterPasswordRepeat"
+                class="modalInput"
+                type="password"
+                placeholder="powtórz hasło"
+                required
+              />
+            </div>
+            <div>
+              <label class="modalTerms">
+                <input type="checkbox" id="termsCheckbox" required />
+                Akceptuję
+                <a href="./rules/regulamin.html" target="_blank">Regulamin</a>
+                i
+                <a href="./rules/privacy.html" target="_blank"
+                  >Politykę prywatności</a
+                >
+              </label>
+            </div>
+            <button id="modelBtnRegister" type="submit" class="modalButton">
+              Rejestruj
+            </button>
+            <p id="modalRegisterMessage"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- LOG IN - First Div is backdrop, block interaction out of the box -->
+    <div class="modalBackdrop is-hidden" data-modal-login>
+      <!-- Actual modal -->
+      <div class="modal">
+        <button type="button" class="modalButtonClose" data-modal-close-login>
+          X
+        </button>
+        <form class="modalForm">
+          <div class="modalFormDiv">
+            <div>
+              <div>
+                <label for="modalRegisterEmail">E-mail: </label>
+                <input
+                  id="modalLoginEmail"
+                  class="modalInput"
+                  placeholder="email@gmail.com"
+                  type="text"
+                />
+              </div>
+              <div>
+                <label for="modalRegisterPassword">Hasło: </label>
+                <input
+                  id="modalLoginPassword"
+                  class="modalInput"
+                  placeholder="hasło"
+                  type="password"
+                />
+              </div>
+            </div>
+
+            <div>
+              <button id="modalBtnLogin" type="submit" class="modalButton">
+                Zaloguj
+              </button>
+              <p id="modalLoginMessage"></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- LOAD REPORT form - First Div is backdrop, block interaction out of the box -->
+    <div class="modalBackdrop is-hidden" data-modal-loadReport>
+      <!-- Actual modal -->
+      <div class="modal">
+        <button
+          type="button"
+          class="modalButtonClose"
+          data-modal-close-loadReport
+        >
+          X
+        </button>
+        <form class="modalForm">
+          <div class="modalFormDiv">
+            <div>
+              <label for="modalRegisterEmail">Wyszukaj raport</label>
+              <input id="reportSearch" class="modalInput" type="text" />
+            </div>
+            <div class="modalFormDiv">
+              <ol id="savedReportsList"></ol>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- CONTACT MODAL -->
+    <div class="modalBackdrop is-hidden" data-modal-contact>
+      <!-- Actual modal -->
+      <div class="modal">
+        <button type="button" class="modalButtonClose" data-modal-close-contact>
+          X
+        </button>
+        <div class="modal__container">
+          <ul class="modal__list">
+            <li>Tel. 123-456-789</li>
+            <li>E-mail email@email.com</li>
+          </ul>
+          <button class="btn" type="button" data-modal-close-contact>
+            Zamknij
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script type="module" src="./js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+  ></script>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+  />
+</html>
