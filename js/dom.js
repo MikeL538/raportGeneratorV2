@@ -8,7 +8,7 @@ const thAddStudentBtn = document.querySelector(".students-table__btn--add");
 export const publisherValue = document.querySelector("#publisherValue");
 publisherValue.value = "Operon";
 const maxStudentsAmount = 150;
-
+const studentsAmountOnStart = 15;
 maxPointsValue.value = 50;
 
 //====== Setters for table 1 =======
@@ -130,7 +130,7 @@ export function generateRaport() {
   console.log(studentsAmountValue.textContent);
 
   if (studentsAmountValue.value === "") {
-    studentsAmountValue.value = 3;
+    studentsAmountValue.value = studentsAmountOnStart;
   }
 
   setPublisher();
