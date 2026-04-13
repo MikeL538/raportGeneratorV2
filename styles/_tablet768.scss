@@ -1,60 +1,19 @@
-@import "./variables";
-
-@media (min-width: 768px) {
-  .main {
-    flex-direction: row;
-  }
-
-  /* FORM */
-  .form {
-    padding: 15px;
-    height: 100%;
-    margin-right: 15px;
-  }
-
-  /* REPORT */
-  .report {
-    @include flex-center(column, center, center);
-    height: 100%;
-    margin: 0;
-    min-width: 450px;
-    padding: 15px 5px;
+@media only screen and (min-width: 768px) and (max-width: 1079px) {
+  .analysis {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
     width: 100%;
 
-    &__section {
+    &__wrapper {
+      margin: 10px 0;
+      min-width: 0;
+      flex: 1 1 0;
+    }
+
+    &__textarea {
+      min-width: 100%;
       max-width: 100%;
-      padding: 0;
     }
-
-    &__table-wrapper {
-      min-height: 280px;
-    }
-
-    &__download {
-      display: none;
-    }
-
-    &__section--side {
-      @include flex-center(row, center, center);
-    }
-  }
-
-  /* STUDENTS TABLE */
-  .students-table {
-    max-width: 550px;
-
-    &__name {
-      max-width: none;
-    }
-  }
-
-  /* INDICATORS */
-  .indicators {
-    margin-right: 8px;
-  }
-
-  /* ANALYSIS */
-  .analysis__textarea {
-    min-width: 420px;
   }
 }

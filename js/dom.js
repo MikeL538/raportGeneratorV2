@@ -29,6 +29,12 @@ function setPublisher() {
       publisherTarget.textContent = publisherValue.value;
     }
   });
+
+  publisherValueInput.addEventListener("input", () => {
+    if (publisherValue.value === "Inne, wprowadź") {
+      publisherTarget.textContent = publisherValueInput.value;
+    }
+  });
 }
 
 // Date range picker
@@ -108,8 +114,6 @@ function setLevel() {
 
 // Max points setter
 function setMaxPoints() {
-  let maxPointsTarget = 50;
-
   maxPointsValue.addEventListener("input", () => {
     maxPointsTarget = maxPointsValue.value;
 
@@ -133,12 +137,12 @@ export function generateRaport() {
     studentsAmountValue.value = studentsAmountOnStart;
   }
 
-  setPublisher();
-  setDate();
-  setClass();
-  setSubject();
-  setLevel();
-  setMaxPoints();
+  // setPublisher();
+  // setDate();
+  // setClass();
+  // setSubject();
+  // setLevel();
+  // setMaxPoints();
 
   if (studentsAmountValue.value > maxStudentsAmount) {
     studentsAmountValue.value = maxStudentsAmount;
@@ -155,4 +159,13 @@ export function generateRaport() {
 export function initStudentsTableEventsWrapper() {
   thAddStudentBtn.addEventListener("click", studentsTableGenerator);
   initStudentsTableEvents();
+}
+
+export function initFormBindings() {
+  setPublisher();
+  setDate();
+  setClass();
+  setSubject();
+  setLevel();
+  setMaxPoints();
 }

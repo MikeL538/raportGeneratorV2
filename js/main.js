@@ -1,29 +1,35 @@
-import { generateRaport, initStudentsTableEventsWrapper } from "./dom.js";
-import { downloadPDF } from "./pdf.js";
-import { isLogged } from "./auth.js";
-import { toggleRegisterModal, register } from "./register.js";
-import { toggleLoginModal, login, logOut } from "./login.js";
-import { saveReport } from "./saveReport.js";
 import {
-  toggleSavedReportModal,
-  showReports,
-  deleteReport,
-} from "./loadReport.js";
+  generateRaport,
+  initStudentsTableEventsWrapper,
+  initFormBindings,
+} from "./dom.js";
+import { downloadPDF } from "./pdf.js";
 import { toggleContactModal } from "./contact.js";
+// Supabase login, register etc
+// import { isLogged } from "./auth.js";
+// import { toggleRegisterModal, register } from "./register.js";
+// import { toggleLoginModal, login, logOut } from "./login.js";
+// import { saveReport } from "./saveReport.js";
+// import {
+//   toggleSavedReportModal,
+//   showReports,
+//   deleteReport,
+// } from "./loadReport.js";
 
 const btnGenerate = document.querySelector("#btnGenerate");
 const btnDownload = document.querySelector("#btnDownload");
 const btnDownloadBottom = document.querySelector("#btnDownloadBottom");
-const btnSaveReport = document.querySelector("#btnSaveReport");
+// const btnSaveReport = document.querySelector("#btnSaveReport");
 
 // Initial raport generation on page load, listeners for buttons
 document.addEventListener("DOMContentLoaded", () => {
-  isLogged();
-  register();
-  login();
+  // isLogged();
+  // register();
+  // login();
+  // showReports();
+  initFormBindings();
   generateRaport();
   initStudentsTableEventsWrapper();
-  showReports();
 });
 
 // Generate raport button
@@ -60,58 +66,58 @@ btnDownloadBottom.addEventListener("click", async () => {
 });
 
 // Report save button
-btnSaveReport.addEventListener("click", () => {
-  // Proposed name
-  const defaultName =
-    document.querySelector("#classTarget").textContent +
-    " | " +
-    document.querySelector("#dateTarget").textContent +
-    " | " +
-    document.querySelector("#levelTarget").textContent.trim();
+// btnSaveReport.addEventListener("click", () => {
+//   // Proposed name
+//   const defaultName =
+//     document.querySelector("#classTarget").textContent +
+//     " | " +
+//     document.querySelector("#dateTarget").textContent +
+//     " | " +
+//     document.querySelector("#levelTarget").textContent.trim();
 
-  const reportName = prompt("Podaj nazwę raportu:", defaultName);
-  if (!reportName) return;
+//   const reportName = prompt("Podaj nazwę raportu:", defaultName);
+//   if (!reportName) return;
 
-  const studentsTableRows = [
-    ...document.querySelectorAll("#tableStudentsData tr"),
-  ];
+//   const studentsTableRows = [
+//     ...document.querySelectorAll("#tableStudentsData tr"),
+//   ];
 
-  const maxPointsElement = document.querySelector(
-    ".students-table__max-points",
-  );
-  const maxPoints = Number(maxPointsElement.textContent);
+//   const maxPointsElement = document.querySelector(
+//     ".students-table__max-points",
+//   );
+//   const maxPoints = Number(maxPointsElement.textContent);
 
-  saveReport(reportName, maxPoints, studentsTableRows);
-});
+//   saveReport(reportName, maxPoints, studentsTableRows);
+// });
 
 // MODALS AND LOGOUTS
 document.addEventListener("click", (e) => {
   // REGISTER
-  if (e.target.closest("[data-modal-open-register]")) {
-    toggleRegisterModal();
-  }
-  if (e.target.closest("[data-modal-close-register]")) {
-    toggleRegisterModal();
-  }
+  // if (e.target.closest("[data-modal-open-register]")) {
+  //   toggleRegisterModal();
+  // }
+  // if (e.target.closest("[data-modal-close-register]")) {
+  //   toggleRegisterModal();
+  // }
   // LOGIN
-  if (e.target.closest("[data-modal-open-login]")) {
-    toggleLoginModal();
-  }
-  if (e.target.closest("[data-modal-close-login]")) {
-    toggleLoginModal();
-  }
+  // if (e.target.closest("[data-modal-open-login]")) {
+  //   toggleLoginModal();
+  // }
+  // if (e.target.closest("[data-modal-close-login]")) {
+  //   toggleLoginModal();
+  // }
   // LOGOUT
-  if (e.target.closest("[data-logout]")) {
-    logOut();
-  }
+  // if (e.target.closest("[data-logout]")) {
+  //   logOut();
+  // }
   // SAVED REPORTS
-  if (e.target.closest("[data-modal-open-loadReport]")) {
-    toggleSavedReportModal();
-    showReports();
-  }
-  if (e.target.closest("[data-modal-close-loadReport]")) {
-    toggleSavedReportModal();
-  }
+  // if (e.target.closest("[data-modal-open-loadReport]")) {
+  //   toggleSavedReportModal();
+  //   showReports();
+  // }
+  // if (e.target.closest("[data-modal-close-loadReport]")) {
+  //   toggleSavedReportModal();
+  // }
   // CONTACT
   if (e.target.closest("[data-modal-open-contact]")) {
     toggleContactModal();
@@ -119,9 +125,9 @@ document.addEventListener("click", (e) => {
   if (e.target.closest("[data-modal-close-contact]")) {
     toggleContactModal();
   }
-  if (e.target.classList.contains("btn-del")) {
-    const btn = e.target.closest("[data-report-id]");
-    const reportId = Number(btn.dataset.reportId);
-    deleteReport(reportId);
-  }
+  // if (e.target.classList.contains("btn-del")) {
+  //   const btn = e.target.closest("[data-report-id]");
+  //   const reportId = Number(btn.dataset.reportId);
+  //   deleteReport(reportId);
+  // }
 });

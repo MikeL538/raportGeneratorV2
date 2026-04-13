@@ -19,7 +19,7 @@
 
         <nav>
           <ul class="header__nav-list">
-            <li>
+            <!-- <li>
               <button class="logInButton" type="button" data-modal-open-login>
                 Zaloguj
               </button>
@@ -32,7 +32,7 @@
               >
                 Rejestracja
               </button>
-            </li>
+            </li> -->
             <li>
               <button id="btnContact" type="button" data-modal-open-contact>
                 Kontakt
@@ -118,16 +118,16 @@
           <button class="btn" id="btnDownload" type="button">Pobierz</button>
         </div>
 
-        <div class="form__logged">
+        <!-- <div class="form__logged">
           <button
             class="btn"
             id="btnSaveReport"
             type="button"
             data-modal-open-saveReport
           >
-            Save report
+            Zapisz Raport
           </button>
-        </div>
+        </div> -->
       </form>
 
       <!-- REPORT -->
@@ -295,27 +295,36 @@
           <div class="report__side">
             <!-- REPORT ANALYSIS -->
             <div class="analysis">
-              <h3 class="report__title">
-                4A. Analiza zadań bardzo łatwych i łatwych:
-              </h3>
-              <textarea id="analysisEasy" class="analysis__textarea"></textarea>
+              <div class="analysis__wrapper">
+                <h3 class="report__title">
+                  4A. Analiza zadań bardzo łatwych i łatwych:
+                </h3>
+                <textarea
+                  id="analysisEasy"
+                  class="analysis__textarea"
+                ></textarea>
+              </div>
 
-              <h3 class="report__title">
-                4B. Analiza zadań bardzo trudnych i trudnych:
-              </h3>
-              <textarea id="analysisHard" class="analysis__textarea"></textarea>
+              <div class="analysis__wrapper">
+                <h3 class="report__title">
+                  4B. Analiza zadań bardzo trudnych i trudnych:
+                </h3>
+                <textarea
+                  id="analysisHard"
+                  class="analysis__textarea"
+                ></textarea>
+              </div>
             </div>
-
-            <!-- REPORT AUTHOR DIV -->
-            <div class="report-author">
-              <h4 class="report__title">Raport przygotowany przez:</h4>
-              <input
-                type="text"
-                id="reportPreparedBy"
-                class="report-author__input"
-                placeholder="Imię i nazwisko autora raportu"
-              />
-            </div>
+          </div>
+          <!-- REPORT AUTHOR DIV -->
+          <div class="report-author">
+            <h4 class="report__title">Raport przygotowany przez:</h4>
+            <input
+              type="text"
+              id="reportPreparedBy"
+              class="report-author__input"
+              placeholder="Imię i nazwisko autora raportu"
+            />
           </div>
         </div>
 
@@ -326,11 +335,9 @@
       </div>
     </main>
 
-    <footer></footer>
-
     <!-- REGISTER - First Div is backdrop, block interaction out of the box -->
-    <div class="modalBackdrop is-hidden" data-modal-register>
-      <!-- Actual modal -->
+    <!-- <div class="modalBackdrop is-hidden" data-modal-register>
+
       <div class="modal">
         <button
           type="button"
@@ -341,7 +348,7 @@
         </button>
         <form class="modalForm">
           <div class="modalFormDiv">
-            <!--  -->
+           
             <div>
               <label for="modalRegisterEmail">E-mail: </label>
               <input
@@ -390,11 +397,11 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> -->
 
     <!-- LOG IN - First Div is backdrop, block interaction out of the box -->
-    <div class="modalBackdrop is-hidden" data-modal-login>
-      <!-- Actual modal -->
+    <!-- <div class="modalBackdrop is-hidden" data-modal-login>
+      
       <div class="modal">
         <button type="button" class="modalButtonClose" data-modal-close-login>
           X
@@ -431,11 +438,11 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> -->
 
     <!-- LOAD REPORT form - First Div is backdrop, block interaction out of the box -->
-    <div class="modalBackdrop is-hidden" data-modal-loadReport>
-      <!-- Actual modal -->
+    <!-- <div class="modalBackdrop is-hidden" data-modal-loadReport>
+     
       <div class="modal">
         <button
           type="button"
@@ -456,7 +463,7 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> -->
 
     <!-- CONTACT MODAL -->
     <div class="modalBackdrop is-hidden" data-modal-contact>

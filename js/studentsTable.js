@@ -3,7 +3,7 @@ import { generateSecondPart } from "./calculations.js";
 const tableStudentsData = document.querySelector("#tableStudentsData");
 const maxPointsValue = document.querySelector("#maxPointsValue");
 let studentsAmountTargetCount = document.querySelector(
-  "#studentsAmountTargetCount"
+  "#studentsAmountTargetCount",
 );
 
 // DELETE BUTTON CELL
@@ -53,19 +53,16 @@ function createMaxPointsCell() {
 
 // PERCENTAGE CALCULATION
 function calculatePercentage(input) {
-  input.addEventListener("input", () => {
-    const max = Number(maxPointsValue.value);
-    const value = Math.min(Number(input.value) || 0, max);
+  // input.addEventListener("input", () => {
+  const max = Number(maxPointsValue.value);
+  const value = Math.min(Number(input.value) || 0, max);
 
-    input.value = value;
+  input.value = value;
 
-    const row = input.closest("tr");
-    const tdPercentage = row.querySelector(".students-table__percentage");
+  const row = input.closest("tr");
+  const tdPercentage = row.querySelector(".students-table__percentage");
 
-    tdPercentage.textContent = `${((value / max) * 100 || 0).toFixed(0)}%`;
-
-    // generateSecondPart(max);
-  });
+  tdPercentage.textContent = `${((value / max) * 100 || 0).toFixed(0)}%`;
 }
 
 // SCORED POINTS CELL
