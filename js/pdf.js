@@ -85,6 +85,8 @@ export async function downloadPDF() {
     const div = document.createElement("div");
     div.textContent = e.value;
     div.style.minHeight = "150px";
+    div.style.width = "270px";
+    // div.style.display = "flex";
 
     e.replaceWith(div);
   });

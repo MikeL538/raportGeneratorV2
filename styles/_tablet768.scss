@@ -1,9 +1,15 @@
-@media only screen and (min-width: 768px) and (max-width: 1079px) {
+@media only screen and (min-width: 768px) {
+  .report__side {
+    display: flex;
+    flex-direction: row;
+  }
+
   .analysis {
     display: flex;
     justify-content: center;
     gap: 12px;
     width: 100%;
+    margin: 0 10px;
 
     &__wrapper {
       margin: 10px 0;
@@ -12,8 +18,8 @@
     }
 
     &__textarea {
-      min-width: 100%;
-      max-width: 100%;
+      width: 100%;
+      max-width: 355px;
     }
   }
 }

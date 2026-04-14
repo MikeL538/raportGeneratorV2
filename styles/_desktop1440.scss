@@ -1,29 +1,20 @@
 @media (min-width: 1440px) {
-  .report {
-    flex-direction: row;
-
-    &__section--side {
-      margin-right: 10px;
-    }
-  }
-
   .analysis {
-    max-width: 230px;
+    // max-width: 230px;
 
     &__textarea {
-      max-width: 230px;
-      min-height: 150px;
-      min-width: 230px;
-      width: 230px;
+      max-width: 280px;
+      min-width: 280px;
     }
   }
 
-  .report-author__input {
-    max-width: 230px;
-    min-width: 230px;
-  }
+  .report {
+    display: flex;
+    align-items: center;
 
-  .report__table-wrapper {
-    min-height: 450px;
+    &-author__input {
+      max-width: 280px;
+      min-width: 280px;
+    }
   }
 }

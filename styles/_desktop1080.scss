@@ -3,35 +3,29 @@
 @media (min-width: 1080px) {
   .main {
     flex-direction: row;
-    justify-content: center;
-    margin-top: 25px auto;
+    // justify-content: center;
+    // margin-top: 25px auto;
   }
 
   .report {
-    display: flex;
+    flex-direction: row;
     margin: 0;
 
     &__section {
       min-width: 500px;
 
-      &--side {
-        max-width: 320px !important;
+      &__side {
+        flex-direction: row;
       }
 
       h1 {
         margin-top: 25px;
       }
     }
+  }
 
-    &__layout {
-      display: flex;
-    }
-
-    &__section--side {
-      @include flex-center(column, center, center);
-      margin-right: 25px;
-      min-width: 250px;
-    }
+  .report__table-wrapper {
+    max-height: 450px;
   }
 
   .form {
@@ -39,10 +33,16 @@
     margin-right: 15px;
   }
 
-  .analysis__textarea {
-    max-width: 768px;
-    min-height: 150px;
-    min-width: 380px;
+  .analysis {
+    flex-direction: row;
+    display: flex;
+    gap: 5px;
+
+    &__textarea {
+      max-width: 768px;
+      min-height: 150px;
+      min-width: 380px;
+    }
   }
 
   .report-author__input {
