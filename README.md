@@ -6,7 +6,7 @@ It is practical project used in work environment to make it easier for
 teachers to complete documents in their work.
 
 👉 **Live Demo (GitHub Pages):**  
-rapgen2.mikeldev.online/
+https://rapgen2.mikeldev.online/
 
 ---
 
